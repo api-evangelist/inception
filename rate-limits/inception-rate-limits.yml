@@ -1,0 +1,27 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.inceptionlabs.ai/get-started/rate-limits
+scope: per-minute
+note: >-
+  Requests can be rate limited based on usage and GPU availability; contact
+  support to raise limits. Limits are enforced per minute across three tiers.
+rate_limits:
+- tier: Free
+  requests_per_minute: 100
+  input_tokens_per_minute: 100000
+  output_tokens_per_minute: 10000
+- tier: Pay As You Go
+  requests_per_minute: 1000
+  input_tokens_per_minute: 1000000
+  output_tokens_per_minute: 100000
+- tier: Enterprise
+  requests_per_minute: 10000
+  input_tokens_per_minute: 10000000
+  output_tokens_per_minute: 1000000
+  note: 10,000+ / 10M+ / 1M+ (floor; negotiated higher)
+signaling:
+  headers: []
+  note: >-
+    No documented RateLimit / X-RateLimit response headers; a 429 Too Many
+    Requests (type rate_limit_error) signals throttling. Clients should
+    implement exponential backoff on 429 and 503.

@@ -1,0 +1,64 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.inceptionlabs.ai/get-started/get-started
+derived_from: openapi/inception-openapi-original.json
+authentication:
+  style: bearer-token
+  header: 'Authorization: Bearer <api_key>'
+  env_var: INCEPTION_API_KEY
+  docs: https://docs.inceptionlabs.ai/get-started/authentication
+  see: authentication/inception-authentication.yml
+compatibility:
+  openai_compatible: true
+  base_url: https://api.inceptionlabs.ai/v1
+  note: >-
+    Drop-in replacement for OpenAI chat/completions request and response shapes;
+    existing OpenAI SDKs work by changing base URL, model string, and key.
+idempotency:
+  supported: false
+  note: >-
+    No Idempotency-Key header or idempotent-retry contract is documented. Chat,
+    FIM, and edit completions are inference calls (non-persistent); safe to retry
+    on 429/503 with exponential backoff.
+pagination:
+  supported: false
+  note: List endpoints (models) return the full set with no pagination parameters.
+streaming:
+  supported: true
+  transport: server-sent-events
+  trigger: 'set stream=true'
+  chunk_objects:
+  - ChatCompletionChunk
+  - TextCompletionChunk
+  diffusion_mode:
+    param: diffusing
+    note: >-
+      Diffusion mode streams intermediate denoising states so a client can
+      visualize how text is iteratively refined into the final answer.
+  docs: https://docs.inceptionlabs.ai/capabilities/streaming
+structured_output:
+  supported: true
+  mechanism: response_format (json_object / json_schema)
+  docs: https://docs.inceptionlabs.ai/capabilities/structured-outputs
+tool_calling:
+  supported: true
+  scope: chat/completions only (not FIM or edit)
+  docs: https://docs.inceptionlabs.ai/capabilities/tool-use
+reasoning_controls:
+  params:
+  - reasoning_effort
+  - reasoning_summary
+  - reasoning_summary_wait
+  instant_mode: 'reasoning_effort=instant for near-realtime, low-latency turns'
+  docs: https://docs.inceptionlabs.ai/capabilities/instant
+request_tracing:
+  request_id_header: null
+  note: No documented request-id / trace header.
+error_envelope:
+  shape: '{ "error": { message, type, param, code } }'
+  format: openai-error-envelope (not RFC 9457)
+  see: errors/inception-problem-types.yml
+rate_limit_signaling:
+  headers: []
+  note: 429 rate_limit_error signals throttling; no RateLimit headers.
+  see: rate-limits/inception-rate-limits.yml

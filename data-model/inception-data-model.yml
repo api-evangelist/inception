@@ -1,0 +1,52 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/inception-openapi-original.json
+note: >-
+  Inception is a stateless inference API (LLM completions); it exposes no
+  persistent resource graph. Entities below are request/response value objects,
+  not stored records, so relationships are compositional (has_one/has_many),
+  not id-referenced foreign keys.
+entities:
+- name: ChatCompletionRequest
+  kind: request
+  key_fields: [model, messages, max_tokens, temperature, tools, response_format, reasoning_effort]
+  relationships:
+  - has_many: Message
+    via: messages
+  - has_many: ChatCompletionTool
+    via: tools
+- name: ChatCompletionResponse
+  kind: response
+  key_fields: [id, model, choices, usage]
+  relationships:
+  - has_many: Choice
+    via: choices
+  - has_one: Usage
+    via: usage
+- name: Choice
+  kind: value
+  relationships:
+  - has_one: Message
+    via: message
+  - has_many: ToolCall
+    via: message.tool_calls
+- name: FIMCompletionRequest
+  kind: request
+  key_fields: [model, prompt, suffix, max_tokens]
+- name: EditCompletionRequest
+  kind: request
+  key_fields: [model, messages, max_tokens]
+  relationships:
+  - has_many: EditMessage
+    via: messages
+- name: ModelObject
+  kind: resource
+  key_fields: [id, name, context_length, pricing, supported_features]
+  relationships:
+  - has_one: PricingInfo
+    via: pricing
+  - has_one: OpenRouterInfo
+    via: openrouter
+model_ids:
+- mercury-2
+- mercury-edit-2

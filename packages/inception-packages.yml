@@ -1,0 +1,22 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.inceptionlabs.ai/get-started/sdks
+packages:
+- language: python
+  registry: pypi
+  name: inceptionai
+  url: https://pypi.org/project/inceptionai/
+  install: pip install inceptionai
+  repository: https://github.com/inception-ai-inc/inceptionai-python
+  official: true
+- language: typescript
+  registry: npm
+  name: inceptionai
+  url: https://www.npmjs.com/package/inceptionai
+  install: npm install inceptionai
+  repository: https://github.com/inception-ai-inc/inceptionai-typescript
+  official: true
+notes: >-
+  The Inception API is OpenAI-compatible, so existing OpenAI SDKs also work when
+  pointed at https://api.inceptionlabs.ai/v1. Both first-party libraries read the
+  API key from the INCEPTION_API_KEY environment variable by default.

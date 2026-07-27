@@ -1,0 +1,16 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/inception-openapi-original.json
+skills:
+- file: inception-chat-completion.md
+  name: Generate a chat completion with Mercury 2
+  api: openapi/inception-openapi-original.json
+  operations: [createChatCompletion, listChatModels]
+- file: inception-tool-calling-agent.md
+  name: Run a tool-calling agent turn with Mercury 2
+  api: openapi/inception-openapi-original.json
+  operations: [createChatCompletion]
+- file: inception-code-autocomplete.md
+  name: Inline code autocomplete and next-edit with Mercury Edit 2
+  api: openapi/inception-openapi-original.json
+  operations: [createFimCompletion, createEditCompletion]

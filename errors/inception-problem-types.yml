@@ -1,0 +1,75 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/inception-openapi-original.json
+enriched_from: https://docs.inceptionlabs.ai/resources/error-codes
+format: openai-error-envelope
+envelope:
+  shape: '{ "error": { "message, type, param, code" } }'
+  fields:
+    message: Human-readable error message.
+    type: Error category, e.g. invalid_request_error, rate_limit_error.
+    param: Offending parameter, if applicable (nullable).
+    code: Machine-readable error code, e.g. context_length_exceeded (nullable).
+  note: >-
+    Errors use the OpenAI-compatible error envelope, NOT RFC 9457
+    application/problem+json. Content type is application/json.
+problems:
+- status: 400
+  title: Bad Request
+  description: Invalid parameters.
+  type_category: invalid_request_error
+  example_code: context_length_exceeded
+  source_operations:
+  - createChatCompletion
+  - createFimCompletion
+  - createEditCompletion
+- status: 401
+  title: Unauthorized
+  description: Missing or invalid API key. Verify key, clear cache, or generate a new key.
+  type_category: authentication_error
+  source_operations:
+  - createChatCompletion
+  - createFimCompletion
+  - createEditCompletion
+  - listModels
+  - listChatModels
+  - listFIMModels
+  - listEditModels
+- status: 402
+  title: Payment Required
+  description: Billing inactive or quota exceeded.
+  type_category: billing_error
+  source_operations:
+  - createChatCompletion
+  - createFimCompletion
+  - createEditCompletion
+- status: 404
+  title: Not Found
+  description: Model not available for this account.
+  type_category: invalid_request_error
+  source_operations:
+  - createChatCompletion
+  - createFimCompletion
+  - createEditCompletion
+- status: 429
+  title: Too Many Requests
+  description: Rate limit exceeded. Pace requests and implement exponential backoff.
+  type_category: rate_limit_error
+  source_operations:
+  - createChatCompletion
+  - createFimCompletion
+  - createEditCompletion
+- status: 500
+  title: Internal Server Error
+  description: Server error. Retry after a brief wait; contact support if persistent.
+  type_category: server_error
+  source_operations:
+  - createChatCompletion
+  - createFimCompletion
+  - createEditCompletion
+  - listModels
+- status: 503
+  title: Engine Overloaded
+  description: Engine overloaded. Retry after a brief wait; contact support if persistent.
+  type_category: server_error
+  source: https://docs.inceptionlabs.ai/resources/error-codes

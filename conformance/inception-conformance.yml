@@ -1,0 +1,35 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/inception-openapi-original.json
+standards:
+- id: openai-chat-completions
+  conforms: true
+  evidence: >-
+    Request/response shapes for /v1/chat/completions match the OpenAI
+    Chat Completions contract; documented as a drop-in OpenAI-compatible API.
+- id: openai-fim-completions
+  conforms: true
+  evidence: /v1/fim/completions implements OpenAI-style fill-in-the-middle prompt/suffix.
+- id: server-sent-events
+  conforms: true
+  evidence: stream=true returns text/event-stream chunk deltas.
+- id: oauth2
+  conforms: false
+  evidence: Auth is a static bearer API key (http bearer), not OAuth2.
+- id: oidc
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use the OpenAI error envelope, not application/problem+json.
+- id: json-api
+  conforms: false
+- id: fhir-r4
+  conforms: false
+- id: scim2
+  conforms: false
+compliance_program:
+  published: false
+  note: >-
+    No public SOC 2 / ISO 27001 / HIPAA / trust-center certifications found;
+    docs cite "enterprise-grade privacy" and private deployment but name no
+    certification. No Compliance pointer emitted.

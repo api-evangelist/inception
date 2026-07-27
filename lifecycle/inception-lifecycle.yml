@@ -1,0 +1,20 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.inceptionlabs.ai/get-started/models
+versioning:
+  scheme: uri-path
+  current: v1
+  base_url: https://api.inceptionlabs.ai/v1
+  note: >-
+    OpenAI-compatible v1 path versioning. Models are versioned by name
+    (mercury-2, mercury-edit-2); a new generation ships as a new model id.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No published deprecation policy or RFC 8594 Sunset/Deprecation header support found.
+sla:
+  uptime_target: '99.5%+'
+  tier: Enterprise
+  source: https://inceptionlabs.ai (Enterprise-grade, 99.5%+ uptime SLA)
+status_page: null
+deprecated_operations: []

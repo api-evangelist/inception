@@ -1,0 +1,35 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: openapi/inception-openapi-original.json
+note: >-
+  No official hosted/remote MCP server was found for Inception Labs (no entry in
+  the npm @modelcontextprotocol scope or public MCP registries as of this run).
+  The tool list below is a CANDIDATE derived one-to-one from the OpenAPI
+  operations; it is not a published server.
+server:
+  name: inception
+  transport: http
+  url: null
+tools:
+- name: create_chat_completion
+  description: Generate a chat completion from a sequence of messages (Mercury 2).
+  source_operation: openapi/inception-openapi-original.json#createChatCompletion
+- name: create_fim_completion
+  description: Generate a fill-in-the-middle code completion (Mercury Edit 2).
+  source_operation: openapi/inception-openapi-original.json#createFimCompletion
+- name: create_edit_completion
+  description: Generate a next-edit code completion from surrounding context (Mercury Edit 2).
+  source_operation: openapi/inception-openapi-original.json#createEditCompletion
+- name: list_models
+  description: List the models currently available through the API.
+  source_operation: openapi/inception-openapi-original.json#listModels
+- name: list_chat_models
+  description: List models available for chat completions.
+  source_operation: openapi/inception-openapi-original.json#listChatModels
+- name: list_fim_models
+  description: List models available for fill-in-the-middle completions.
+  source_operation: openapi/inception-openapi-original.json#listFIMModels
+- name: list_edit_models
+  description: List models available for edit completions.
+  source_operation: openapi/inception-openapi-original.json#listEditModels

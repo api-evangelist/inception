@@ -1,0 +1,20 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.inceptionlabs.ai/get-started/models
+billing_model: token-metered
+currency: USD
+unit: per 1M tokens
+free_tier: 10,000,000 tokens on account creation
+finops:
+- model: mercury-2
+  input: 0.25
+  cached_input: 0.025
+  output: 0.75
+- model: mercury-edit-2
+  input: 0.25
+  cached_input: 0.025
+  output: 0.75
+notes: >-
+  Cached input tokens are billed at a 90% discount ($0.025 vs $0.25 per 1M).
+  Diffusion inference is positioned as roughly half the cost of comparable
+  autoregressive frontier models. Enterprise pricing negotiated via sales.

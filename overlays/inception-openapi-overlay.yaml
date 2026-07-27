@@ -1,0 +1,33 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Inception API
+  version: 1.0.0
+extends: openapi/inception-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: inception
+    x-apievangelist-openai-compatible: true
+    x-apievangelist-model-family: mercury-diffusion
+    x-apievangelist-artifacts:
+      authentication: authentication/inception-authentication.yml
+      conventions: conventions/inception-conventions.yml
+      errors: errors/inception-problem-types.yml
+      lifecycle: lifecycle/inception-lifecycle.yml
+      rate_limits: rate-limits/inception-rate-limits.yml
+      data_model: data-model/inception-data-model.yml
+- target: $.paths['/v1/chat/completions'].post
+  update:
+    x-apievangelist-marquee: true
+    x-apievangelist-capabilities:
+    - tool-calling
+    - structured-outputs
+    - streaming
+    - diffusion-mode
+    - reasoning-effort
+- target: $.paths['/v1/fim/completions'].post
+  update:
+    x-apievangelist-use-case: ide-inline-autocomplete
+- target: $.paths['/v1/edit/completions'].post
+  update:
+    x-apievangelist-use-case: next-edit-prediction

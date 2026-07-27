@@ -1,22 +1,106 @@
 aid: inception
 name: Inception
-description: 'Inception is a company surfaced as a portfolio company of amplify-partners and added to
-  the API Evangelist network as a stub for enrichment. Sector: ai-ml. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: >-
+  Inception Labs builds diffusion-based large language models (dLLMs) branded
+  Mercury. Unlike autoregressive models that emit tokens one at a time, Mercury
+  generates many tokens in parallel through discrete diffusion, running 5-10x
+  faster at roughly half the cost of comparable frontier models. The Inception
+  API is OpenAI-compatible and exposes chat completions (Mercury 2, a reasoning
+  dLLM with a 128K context, tool calling, and structured outputs), plus
+  fill-in-the-middle and next-edit code completions (Mercury Edit 2) for
+  IDE-style autocomplete. It ships official Python and TypeScript SDKs, a
+  streaming/diffusion mode, and enterprise deployment via the Inception API,
+  AWS Bedrock, and Azure AI Foundry. Backed by Amplify Partners.
 url: https://raw.githubusercontent.com/api-evangelist/inception/refs/heads/main/apis.yml
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.inceptionlabs.ai/logo.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - amplify-partners
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enrichment-pipeline
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
 - Ai Ml
-apis: []
+- LLM
+- Artificial Intelligence
+- Diffusion Models
+- Code Completion
+- Machine Learning
+- Developer Tools
+apis:
+- aid: inception:inception-chat-api
+  name: Inception Chat API
+  description: Chat completion endpoints (OpenAI-compatible).
+  humanURL: https://docs.inceptionlabs.ai/get-started/get-started
+  baseURL: https://api.inceptionlabs.ai
+  tags:
+  - Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/inception-chat-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inceptionlabs.ai/get-started/get-started
+  - type: APIReference
+    url: https://docs.inceptionlabs.ai/api-reference/chat/create-a-chat-completion
+- aid: inception:inception-edit-api
+  name: Inception Edit API
+  description: Code edit completion endpoints.
+  humanURL: https://docs.inceptionlabs.ai/get-started/get-started
+  baseURL: https://api.inceptionlabs.ai
+  tags:
+  - Edit
+  properties:
+  - type: OpenAPI
+    url: openapi/inception-edit-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inceptionlabs.ai/get-started/get-started
+  - type: APIReference
+    url: https://docs.inceptionlabs.ai/api-reference/chat/create-a-chat-completion
+- aid: inception:inception-fim-api
+  name: Inception FIM API
+  description: Fill-in-the-middle code completion endpoints.
+  humanURL: https://docs.inceptionlabs.ai/get-started/get-started
+  baseURL: https://api.inceptionlabs.ai
+  tags:
+  - FIM
+  properties:
+  - type: OpenAPI
+    url: openapi/inception-fim-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inceptionlabs.ai/get-started/get-started
+  - type: APIReference
+    url: https://docs.inceptionlabs.ai/api-reference/chat/create-a-chat-completion
+- aid: inception:inception-models-api
+  name: Inception Models API
+  description: List available models.
+  humanURL: https://docs.inceptionlabs.ai/get-started/get-started
+  baseURL: https://api.inceptionlabs.ai
+  tags:
+  - Models
+  properties:
+  - type: OpenAPI
+    url: openapi/inception-models-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inceptionlabs.ai/get-started/get-started
+  - type: APIReference
+    url: https://docs.inceptionlabs.ai/api-reference/chat/create-a-chat-completion
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,3 +109,68 @@ maintainers:
 common:
 - type: Website
   url: https://inceptionlabs.ai
+- type: DeveloperPortal
+  url: https://platform.inceptionlabs.ai/
+- type: Documentation
+  url: https://docs.inceptionlabs.ai/get-started/get-started
+- type: APIReference
+  url: https://docs.inceptionlabs.ai/api-reference/chat/create-a-chat-completion
+- type: GettingStarted
+  url: https://docs.inceptionlabs.ai/get-started/get-started
+- type: Authentication
+  url: authentication/inception-authentication.yml
+- type: Blog
+  url: https://www.inceptionlabs.ai/blog
+- type: Support
+  url: https://docs.inceptionlabs.ai/support/support
+- type: Pricing
+  url: https://docs.inceptionlabs.ai/get-started/models
+- type: SignUp
+  url: https://platform.inceptionlabs.ai/auth/login
+- type: TermsOfService
+  url: https://docs.inceptionlabs.ai/support/tou
+- type: PrivacyPolicy
+  url: https://docs.inceptionlabs.ai/support/privacy
+- type: GitHubOrganization
+  url: https://github.com/inception-ai-inc
+- type: OpenAPI
+  url: openapi/inception-openapi-original.json
+- type: LLMsTxt
+  url: llms/inception-llms.txt
+- type: Packages
+  url: packages/inception-packages.yml
+- type: SDKs
+  url: packages/inception-packages.yml
+- type: MCPServer
+  url: mcp/inception-mcp.yml
+- type: RateLimits
+  url: rate-limits/inception-rate-limits.yml
+- type: Plans
+  url: plans/inception-plans.yml
+- type: FinOps
+  url: finops/inception-finops.yml
+- type: ErrorCatalog
+  url: errors/inception-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/inception-lifecycle.yml
+- type: Conventions
+  url: conventions/inception-conventions.yml
+- type: Conformance
+  url: conformance/inception-conformance.yml
+- type: DataModel
+  url: data-model/inception-data-model.yml
+- type: Overlay
+  url: overlays/inception-openapi-overlay.yaml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/inception-agentic-access.yml
+- type: Authentication
+  url: authentication/inception-authentication.yml
+- type: DomainSecurity
+  url: security/inception-domain-security.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
