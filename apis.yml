@@ -134,7 +134,7 @@ common:
 - type: GitHubOrganization
   url: https://github.com/inception-ai-inc
 - type: OpenAPI
-  url: openapi/inception-openapi-original.json
+  url: openapi/_original/inception-openapi-original.json
 - type: LLMsTxt
   url: llms/inception-llms.txt
 - type: Packages
