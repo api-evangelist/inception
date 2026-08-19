@@ -1,0 +1,470 @@
+{
+  "item": [
+    {
+      "id": "0a082729-0ac0-4c79-a1a3-e74b1a7ee200",
+      "name": "Chat",
+      "description": {
+        "content": "Chat completion endpoints (OpenAI-compatible).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a9eb4697-4f80-45b5-829a-351f5639098a",
+          "name": "Create a chat completion",
+          "request": {
+            "name": "Create a chat completion",
+            "description": {
+              "content": "Generate a chat completion from a sequence of messages. Returns a `ChatCompletion` object, or a server-sent events stream of `ChatCompletionChunk` deltas when `stream=true`. Supports tool calling, structured output via `response_format`, and reasoning controls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "chat",
+                "completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 16384,\n  \"temperature\": 0.75,\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": true\n        },\n        \"strict\": false\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 6569.283783689969\n        },\n        \"strict\": false\n      }\n    }\n  ],\n  \"tool_choice\": \"<string>\",\n  \"stream\": false,\n  \"stream_options\": {\n    \"include_usage\": false\n  },\n  \"diffusing\": false,\n  \"extra_body\": {\n    \"key_0\": \"string\"\n  },\n  \"realtime\": false,\n  \"response_format\": {\n    \"type\": \"<string>\"\n  },\n  \"reasoning_summary\": false,\n  \"reasoning_summary_wait\": false,\n  \"reasoning_effort\": \"medium\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cd553c28-3364-49b2-85a9-d6ce586a8cea",
+              "name": "Successful response. Returns a JSON object when `stream=false`, or a server-sent events stream of `ChatCompletionChunk` objects (terminated by `data: [DONE]`) when `stream=true`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"What is a diffusion language model?\"\n    }\n  ],\n  \"max_tokens\": 256,\n  \"temperature\": 0.75\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"chatcmpl-7a2b3c4d5e\",\n  \"object\": \"chat.completion\",\n  \"created\": 1745798400,\n  \"model\": \"mercury-2\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"finish_reason\": \"stop\",\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"A diffusion language model is a type of language model that uses diffusion to generate text.\"\n      }\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 12,\n    \"completion_tokens\": 8,\n    \"total_tokens\": 20,\n    \"reasoning_tokens\": 0,\n    \"cached_input_tokens\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eeb5f66e-20d9-4d56-9e99-88a6285b9573",
+              "name": "Bad Request — invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"What is a diffusion language model?\"\n    }\n  ],\n  \"max_tokens\": 256,\n  \"temperature\": 0.75\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.\",\n    \"type\": \"invalid_request_error\",\n    \"param\": \"messages\",\n    \"code\": \"context_length_exceeded\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bcc5d738-ae57-4461-a252-d6b496e4245c",
+              "name": "Unauthorized — missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"What is a diffusion language model?\"\n    }\n  ],\n  \"max_tokens\": 256,\n  \"temperature\": 0.75\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Incorrect API key provided\",\n    \"type\": \"authentication_error\",\n    \"param\": null,\n    \"code\": \"invalid_api_key\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0eeb6aec-a091-4db3-afec-160f9295e267",
+              "name": "Payment Required — billing inactive or quota exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"What is a diffusion language model?\"\n    }\n  ],\n  \"max_tokens\": 256,\n  \"temperature\": 0.75\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Account is inactive\",\n    \"type\": \"account_error\",\n    \"param\": null,\n    \"code\": \"account_error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6a8b7d4-abdb-4462-8978-1a24dda71e97",
+              "name": "Not Found — model not available for this account.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"What is a diffusion language model?\"\n    }\n  ],\n  \"max_tokens\": 256,\n  \"temperature\": 0.75\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"model `jupyter-2` not found\",\n    \"type\": \"invalid_request_error\",\n    \"param\": \"model\",\n    \"code\": \"model_not_found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c130b03-c9a2-4b2c-a28e-716078af195a",
+              "name": "Too Many Requests — rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"What is a diffusion language model?\"\n    }\n  ],\n  \"max_tokens\": 256,\n  \"temperature\": 0.75\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Rate limit exceeded. Please try again later.\",\n    \"type\": \"rate_limit_error\",\n    \"param\": null,\n    \"code\": \"rate_limit_reached\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d7ffb1b-8cad-44a3-8457-1172b23f3d45",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"What is a diffusion language model?\"\n    }\n  ],\n  \"max_tokens\": 256,\n  \"temperature\": 0.75\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"The server had an error while processing your request.\",\n    \"type\": \"server_error\",\n    \"param\": null,\n    \"code\": \"server_error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.inceptionlabs.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "acc88bd5-b16e-44ef-bceb-9a23cd6635d8",
+    "name": "Inception Chat API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Inception Labs LLM API — chat, FIM, and edit completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes with extensions for diffusion-specific features.\n\nContact Support:\n Name: Inception Labs\n Email: support@inceptionlabs.ai",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,470 @@
+{
+  "item": [
+    {
+      "id": "ed47f28f-bd26-4c14-a898-c22984628147",
+      "name": "FIM",
+      "description": {
+        "content": "Fill-in-the-middle code completion endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9ac474f2-66f9-4cba-95da-b908141ff400",
+          "name": "Create a fill-in-the-middle completion",
+          "request": {
+            "name": "Create a fill-in-the-middle completion",
+            "description": {
+              "content": "Generate a code completion given a `prompt` (prefix) and optional `suffix`. Designed for IDE-style inline completion. Returns a `FimCompletion` object, or a server-sent events stream of `FimCompletionChunk` deltas when `stream=true`. Tool calling and function calling are not supported.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "fim",
+                "completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"suffix\": \"<string>\",\n  \"max_tokens\": 512,\n  \"top_p\": 1,\n  \"top_k\": -1,\n  \"frequency_penalty\": 0,\n  \"presence_penalty\": 1.5,\n  \"repetition_penalty\": 1,\n  \"stop\": [\n    \"\\n\\n\",\n    \"\\n \\n\"\n  ],\n  \"stream\": false,\n  \"stream_options\": {\n    \"include_usage\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f6df02b6-311b-4494-84e9-e7694fa54134",
+              "name": "Successful response. Returns a JSON object when `stream=false`, or a server-sent events stream of `TextCompletionChunk` objects (terminated by `data: [DONE]`) when `stream=true`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fim",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"prompt\": \"def fibonacci(n: int) -> int:\\n    if n <= 1:\\n        return n\\n    return \",\n  \"suffix\": \"\\n\\nprint(fibonacci(10))\\n\",\n  \"max_tokens\": 256\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"cmpl-7a2b3c4d5e\",\n  \"object\": \"text_completion\",\n  \"created\": 1745798400,\n  \"model\": \"mercury-edit-2\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"finish_reason\": \"stop\",\n      \"text\": \"fibonacci(n - 1) + fibonacci(n - 2)\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 24,\n    \"completion_tokens\": 14,\n    \"total_tokens\": 38,\n    \"reasoning_tokens\": 0,\n    \"cached_input_tokens\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "577a9bc8-c233-4082-abed-2da93feb4afc",
+              "name": "Bad Request — invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fim",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"prompt\": \"def fibonacci(n: int) -> int:\\n    if n <= 1:\\n        return n\\n    return \",\n  \"suffix\": \"\\n\\nprint(fibonacci(10))\\n\",\n  \"max_tokens\": 256\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.\",\n    \"type\": \"invalid_request_error\",\n    \"param\": \"messages\",\n    \"code\": \"context_length_exceeded\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63dd1b83-893d-4555-9a94-24ff76bf445d",
+              "name": "Unauthorized — missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fim",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"prompt\": \"def fibonacci(n: int) -> int:\\n    if n <= 1:\\n        return n\\n    return \",\n  \"suffix\": \"\\n\\nprint(fibonacci(10))\\n\",\n  \"max_tokens\": 256\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Incorrect API key provided\",\n    \"type\": \"authentication_error\",\n    \"param\": null,\n    \"code\": \"invalid_api_key\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2fa32bf9-5ac1-4fe9-8997-22f41322569c",
+              "name": "Payment Required — billing inactive or quota exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fim",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"prompt\": \"def fibonacci(n: int) -> int:\\n    if n <= 1:\\n        return n\\n    return \",\n  \"suffix\": \"\\n\\nprint(fibonacci(10))\\n\",\n  \"max_tokens\": 256\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Account is inactive\",\n    \"type\": \"account_error\",\n    \"param\": null,\n    \"code\": \"account_error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dda1a068-d557-45ba-8f0e-bed14a56f7c6",
+              "name": "Not Found — model not available for this account.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fim",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"prompt\": \"def fibonacci(n: int) -> int:\\n    if n <= 1:\\n        return n\\n    return \",\n  \"suffix\": \"\\n\\nprint(fibonacci(10))\\n\",\n  \"max_tokens\": 256\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"model `jupyter-2` not found\",\n    \"type\": \"invalid_request_error\",\n    \"param\": \"model\",\n    \"code\": \"model_not_found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ea28cdf-cdde-4212-804c-1af4c2032f9c",
+              "name": "Too Many Requests — rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fim",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"prompt\": \"def fibonacci(n: int) -> int:\\n    if n <= 1:\\n        return n\\n    return \",\n  \"suffix\": \"\\n\\nprint(fibonacci(10))\\n\",\n  \"max_tokens\": 256\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Rate limit exceeded. Please try again later.\",\n    \"type\": \"rate_limit_error\",\n    \"param\": null,\n    \"code\": \"rate_limit_reached\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c14d6a37-6cdd-4821-99c6-3e377cea11e7",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "fim",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"prompt\": \"def fibonacci(n: int) -> int:\\n    if n <= 1:\\n        return n\\n    return \",\n  \"suffix\": \"\\n\\nprint(fibonacci(10))\\n\",\n  \"max_tokens\": 256\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"The server had an error while processing your request.\",\n    \"type\": \"server_error\",\n    \"param\": null,\n    \"code\": \"server_error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.inceptionlabs.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "322fd7fb-0c25-4df9-bf65-26832615bc5f",
+    "name": "Inception Chat FIM API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Inception Labs LLM API — chat, FIM, and edit completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes with extensions for diffusion-specific features.\n\nContact Support:\n Name: Inception Labs\n Email: support@inceptionlabs.ai",
+      "type": "text/plain"
+    }
+  }
+}

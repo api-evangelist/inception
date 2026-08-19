@@ -1,0 +1,470 @@
+{
+  "item": [
+    {
+      "id": "db2a1947-0b8e-4e4f-a469-1cf0afb03792",
+      "name": "Edit",
+      "description": {
+        "content": "Code edit completion endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9a4649c8-3cbb-4897-b854-a50b7ef2ea9b",
+          "name": "Create a code edit completion",
+          "request": {
+            "name": "Create a code edit completion",
+            "description": {
+              "content": "Generate an edit to a code region given the surrounding context. The request must contain a single user message whose content includes the required edit prompt tags (e.g. `<|code_to_edit|>`, `<|cursor|>`, `<|current_file_content|>`). Returns an `EditCompletion` object. Streaming and tool calling are not supported on this endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "edit",
+                "completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    },\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 1024,\n  \"temperature\": 0.2,\n  \"top_p\": 1,\n  \"presence_penalty\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0d90b69c-2fbf-42bb-8426-afec49a35d5b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "edit",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\\\"hi\\\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\\\"hi\\\")<|cursor|>\\n<|/code_to_edit|>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"cmpl-7a2b3c4d5e\",\n  \"object\": \"edit.completion\",\n  \"created\": 1745798400,\n  \"model\": \"mercury-edit-2\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"finish_reason\": \"stop\",\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"def greet(name):\\n    print(f\\\"hi {name}\\\")\\n\"\n      }\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 156,\n    \"completion_tokens\": 18,\n    \"total_tokens\": 174,\n    \"reasoning_tokens\": 0,\n    \"cached_input_tokens\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9328ac05-9479-498c-a255-4fcdf6e1cdec",
+              "name": "Bad Request — invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "edit",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\\\"hi\\\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\\\"hi\\\")<|cursor|>\\n<|/code_to_edit|>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.\",\n    \"type\": \"invalid_request_error\",\n    \"param\": \"messages\",\n    \"code\": \"context_length_exceeded\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0ec5b0f-3a62-46c8-8eb1-f4491e1a44b4",
+              "name": "Unauthorized — missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "edit",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\\\"hi\\\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\\\"hi\\\")<|cursor|>\\n<|/code_to_edit|>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Incorrect API key provided\",\n    \"type\": \"authentication_error\",\n    \"param\": null,\n    \"code\": \"invalid_api_key\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96919d92-7796-45c6-a6de-d8acdea15ed8",
+              "name": "Payment Required — billing inactive or quota exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "edit",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\\\"hi\\\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\\\"hi\\\")<|cursor|>\\n<|/code_to_edit|>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Account is inactive\",\n    \"type\": \"account_error\",\n    \"param\": null,\n    \"code\": \"account_error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "717492e6-be04-4c78-80d8-9e723e3a90fe",
+              "name": "Not Found — model not available for this account.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "edit",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\\\"hi\\\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\\\"hi\\\")<|cursor|>\\n<|/code_to_edit|>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"model `jupyter-2` not found\",\n    \"type\": \"invalid_request_error\",\n    \"param\": \"model\",\n    \"code\": \"model_not_found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d3fdefd-eb26-48a6-b121-775f23125557",
+              "name": "Too Many Requests — rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "edit",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\\\"hi\\\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\\\"hi\\\")<|cursor|>\\n<|/code_to_edit|>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"Rate limit exceeded. Please try again later.\",\n    \"type\": \"rate_limit_error\",\n    \"param\": null,\n    \"code\": \"rate_limit_reached\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa1c3af8-9330-4f8d-ab74-3622c9944e1d",
+              "name": "Internal Server Error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "edit",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\\\"hi\\\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\\\"hi\\\")<|cursor|>\\n<|/code_to_edit|>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"The server had an error while processing your request.\",\n    \"type\": \"server_error\",\n    \"param\": null,\n    \"code\": \"server_error\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.inceptionlabs.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e5ae5103-f8b7-4420-8e98-216cef14ae2b",
+    "name": "Inception Chat Edit API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Inception Labs LLM API — chat, FIM, and edit completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes with extensions for diffusion-specific features.\n\nContact Support:\n Name: Inception Labs\n Email: support@inceptionlabs.ai",
+      "type": "text/plain"
+    }
+  }
+}
