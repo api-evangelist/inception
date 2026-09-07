@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Inception Chat API
   version: 1.0.0
@@ -154,177 +154,6 @@ paths:
         source: "import Inception from 'inceptionai';\n\nconst client = new Inception({\n  apiKey: process.env['INCEPTION_API_KEY'], // defaults to this env var; can be omitted\n});\n\nconst chatCompletion = await client.chat.completions.create({\n  model: 'mercury-2',\n  messages: [\n    {\n      role: 'user',\n      content: 'What is a diffusion language model?'\n    }\n  ],\n  max_tokens: 256,\n  temperature: 0.75\n});\nconsole.log(chatCompletion);"
 components:
   schemas:
-    JSONSchema:
-      type: object
-      title: JSONSchema
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
-        description:
-          type: string
-          description: A description of what the response format is for, used by the model to determine how to respond in the format.
-        schema:
-          type: object
-          additionalProperties: true
-          description: The schema for the response format, described as a JSON Schema object.
-        strict:
-          type: boolean
-          default: false
-          description: Whether to enforce strict schema adherence when generating the output. When true, the model output is constrained to match the supplied `schema` exactly.
-    ChatCompletionResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        object:
-          type: string
-          const: chat.completion
-          title: Object
-          default: chat.completion
-        created:
-          type: integer
-          title: Created
-        model:
-          type: string
-          title: Model
-        choices:
-          items:
-            $ref: '#/components/schemas/Choice'
-          type: array
-          title: Choices
-        usage:
-          $ref: '#/components/schemas/Usage'
-        warning:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Warning
-        reasoning_summary:
-          anyOf:
-          - $ref: '#/components/schemas/ReasoningSummary'
-          - type: 'null'
-          description: Summary of reasoning process if requested and available.
-      type: object
-      required:
-      - id
-      - created
-      - model
-      - choices
-      - usage
-      - object
-      title: ChatCompletionResponse
-      example:
-        id: chatcmpl-7a2b3c4d5e
-        object: chat.completion
-        created: 1745798400
-        model: mercury-2
-        choices:
-        - index: 0
-          finish_reason: stop
-          message:
-            role: assistant
-            content: A diffusion language model is a type of language model that uses diffusion to generate text.
-        usage:
-          prompt_tokens: 12
-          completion_tokens: 8
-          total_tokens: 20
-          reasoning_tokens: 0
-          cached_input_tokens: 0
-    ReasoningSummary:
-      description: Summary of the model's reasoning process.
-      properties:
-        content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          default: null
-          description: The summarized reasoning.
-          title: Content
-        status:
-          default: unavailable
-          description: Status of the summary.
-          enum:
-          - complete
-          - unavailable
-          - skipped
-          title: Status
-          type: string
-      title: ReasoningSummary
-      type: object
-      required: []
-    ChatCompletionChunk:
-      description: Model for a single chunk in a streaming chat completion response.
-      properties:
-        id:
-          title: Id
-          type: string
-        object:
-          const: chat.completion.chunk
-          default: chat.completion.chunk
-          title: Object
-          type: string
-        created:
-          title: Created
-          type: integer
-        model:
-          title: Model
-          type: string
-        choices:
-          items:
-            $ref: '#/components/schemas/ChunkChoice'
-          title: Choices
-          type: array
-        reasoning_summary:
-          anyOf:
-          - $ref: '#/components/schemas/ReasoningSummary'
-          - type: 'null'
-          default: null
-          description: Summary of reasoning process (included in final chunk if available).
-      required:
-      - id
-      - created
-      - model
-      - choices
-      - object
-      title: ChatCompletionChunk
-      type: object
-    StreamOptions:
-      properties:
-        include_usage:
-          type: boolean
-          title: Include Usage
-          description: 'If true, an additional chunk is streamed before the `data: [DONE]` message containing the token usage statistics for the entire request. Inside that chunk, `choices` is an empty array and the `usage` field is populated.'
-          default: false
-      type: object
-      title: StreamOptions
-      description: Options for controlling streaming behavior. Only used when `stream=true`.
-      required: []
-    ErrorObject:
-      type: object
-      title: ErrorObject
-      required:
-      - message
-      - type
-      properties:
-        message:
-          type: string
-          description: Human-readable error message.
-        type:
-          type: string
-          description: Error category, e.g. `invalid_request_error`, `rate_limit_error`.
-        param:
-          type:
-          - string
-          - 'null'
-          description: Offending parameter, if applicable.
-        code:
-          type:
-          - string
-          - 'null'
-          description: Machine-readable error code.
     Message:
       properties:
         role:
@@ -365,83 +194,6 @@ components:
       required:
       - role
       title: Message
-    ToolCallDelta:
-      description: Streaming counterpart to ToolCall; per OpenAI SSE spec, id/type only appear in the first chunk per index.
-      properties:
-        index:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          default: 0
-          title: Index
-        id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          default: null
-          title: Id
-        type:
-          anyOf:
-          - const: function
-            type: string
-          - type: 'null'
-          default: null
-          title: Type
-        function:
-          anyOf:
-          - $ref: '#/components/schemas/FunctionCallDelta'
-          - type: 'null'
-          default: null
-      title: ToolCallDelta
-      type: object
-      required: []
-    ChatCompletionTool:
-      type: object
-      title: ChatCompletionTool
-      required:
-      - type
-      - function
-      properties:
-        type:
-          type: string
-          const: function
-          description: The type of the tool.
-        function:
-          $ref: '#/components/schemas/FunctionDefinition'
-    Choice:
-      properties:
-        index:
-          type: integer
-          title: Index
-        message:
-          $ref: '#/components/schemas/Message'
-        finish_reason:
-          type:
-          - string
-          - 'null'
-          enum:
-          - stop
-          - length
-          - tool_calls
-          - content_filter
-          - null
-          description: The reason the model stopped generating tokens.
-      type: object
-      required:
-      - index
-      - message
-      - finish_reason
-      title: Choice
-    ResponseFormatText:
-      type: object
-      title: ResponseFormatText
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          const: text
-          description: The type of response format being defined. Always `text`. The model responds with plain text and output is not constrained to JSON.
     FunctionCall:
       properties:
         name:
@@ -456,6 +208,150 @@ components:
       required:
       - arguments
       title: FunctionCall
+    ErrorObject:
+      type: object
+      title: ErrorObject
+      required:
+      - message
+      - type
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
+        type:
+          type: string
+          description: Error category, e.g. `invalid_request_error`, `rate_limit_error`.
+        param:
+          type:
+          - string
+          - 'null'
+          description: Offending parameter, if applicable.
+        code:
+          type:
+          - string
+          - 'null'
+          description: Machine-readable error code.
+    ReasoningSummary:
+      description: Summary of the model's reasoning process.
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: The summarized reasoning.
+          title: Content
+        status:
+          default: unavailable
+          description: Status of the summary.
+          enum:
+          - complete
+          - unavailable
+          - skipped
+          title: Status
+          type: string
+      title: ReasoningSummary
+      type: object
+      required: []
+    ChunkDelta:
+      description: Represents a partial message in a streaming response chunk.
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: The partial content of the message.
+          title: Content
+        role:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: The role of the message sender, typically only in the first chunk.
+          title: Role
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ToolCallDelta'
+            type: array
+          - type: 'null'
+          default: null
+          description: The tool calls generated by the model in this chunk.
+          title: Tool Calls
+      title: ChunkDelta
+      type: object
+      required: []
+    ChatCompletionChunk:
+      description: Model for a single chunk in a streaming chat completion response.
+      properties:
+        id:
+          title: Id
+          type: string
+        object:
+          const: chat.completion.chunk
+          default: chat.completion.chunk
+          title: Object
+          type: string
+        created:
+          title: Created
+          type: integer
+        model:
+          title: Model
+          type: string
+        choices:
+          items:
+            $ref: '#/components/schemas/ChunkChoice'
+          title: Choices
+          type: array
+        reasoning_summary:
+          anyOf:
+          - $ref: '#/components/schemas/ReasoningSummary'
+          - type: 'null'
+          default: null
+          description: Summary of reasoning process (included in final chunk if available).
+      required:
+      - id
+      - created
+      - model
+      - choices
+      - object
+      title: ChatCompletionChunk
+      type: object
+    ChunkChoice:
+      description: Represents a choice in a streaming response chunk.
+      properties:
+        index:
+          title: Index
+          type: integer
+        delta:
+          $ref: '#/components/schemas/ChunkDelta'
+        finish_reason:
+          type:
+          - string
+          - 'null'
+          enum:
+          - stop
+          - length
+          - tool_calls
+          - content_filter
+          - null
+          description: The reason the model stopped generating tokens.
+      required:
+      - index
+      - delta
+      title: ChunkChoice
+      type: object
+    ResponseFormatText:
+      type: object
+      title: ResponseFormatText
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          const: text
+          description: The type of response format being defined. Always `text`. The model responds with plain text and output is not constrained to JSON.
     ChatCompletionRequest:
       properties:
         messages:
@@ -557,6 +453,105 @@ components:
       - messages
       - model
       title: ChatCompletionRequest
+    ChatCompletionResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        object:
+          type: string
+          const: chat.completion
+          title: Object
+          default: chat.completion
+        created:
+          type: integer
+          title: Created
+        model:
+          type: string
+          title: Model
+        choices:
+          items:
+            $ref: '#/components/schemas/Choice'
+          type: array
+          title: Choices
+        usage:
+          $ref: '#/components/schemas/Usage'
+        warning:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Warning
+        reasoning_summary:
+          anyOf:
+          - $ref: '#/components/schemas/ReasoningSummary'
+          - type: 'null'
+          description: Summary of reasoning process if requested and available.
+      type: object
+      required:
+      - id
+      - created
+      - model
+      - choices
+      - usage
+      - object
+      title: ChatCompletionResponse
+      example:
+        id: chatcmpl-7a2b3c4d5e
+        object: chat.completion
+        created: 1745798400
+        model: mercury-2
+        choices:
+        - index: 0
+          finish_reason: stop
+          message:
+            role: assistant
+            content: A diffusion language model is a type of language model that uses diffusion to generate text.
+        usage:
+          prompt_tokens: 12
+          completion_tokens: 8
+          total_tokens: 20
+          reasoning_tokens: 0
+          cached_input_tokens: 0
+    FunctionDefinition:
+      type: object
+      title: FunctionDefinition
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+        description:
+          type: string
+          description: A description of what the function does, used by the model to choose when and how to call the function.
+        parameters:
+          type: object
+          additionalProperties: true
+          description: The parameters the function accepts, described as a JSON Schema object.
+        strict:
+          type: boolean
+          default: false
+          description: Whether to enforce strict schema adherence when generating the function call. When true, the model output is constrained to match the `parameters` schema exactly.
+    JSONSchema:
+      type: object
+      title: JSONSchema
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+        description:
+          type: string
+          description: A description of what the response format is for, used by the model to determine how to respond in the format.
+        schema:
+          type: object
+          additionalProperties: true
+          description: The schema for the response format, described as a JSON Schema object.
+        strict:
+          type: boolean
+          default: false
+          description: Whether to enforce strict schema adherence when generating the output. When true, the model output is constrained to match the supplied `schema` exactly.
     ResponseFormatJSONObject:
       type: object
       title: ResponseFormatJSONObject
@@ -567,33 +562,36 @@ components:
           type: string
           const: json_object
           description: The type of response format being defined. Always `json_object`.
-    ChunkDelta:
-      description: Represents a partial message in a streaming response chunk.
+    ErrorResponse:
+      type: object
+      title: ErrorResponse
+      required:
+      - error
       properties:
-        content:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+      example:
+        error:
+          message: You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.
+          type: invalid_request_error
+          param: messages
+          code: context_length_exceeded
+    FunctionCallDelta:
+      description: Streaming counterpart to FunctionCall; arguments arrives chunk-by-chunk and may be null.
+      properties:
+        name:
           anyOf:
           - type: string
           - type: 'null'
           default: null
-          description: The partial content of the message.
-          title: Content
-        role:
+          title: Name
+        arguments:
           anyOf:
           - type: string
           - type: 'null'
           default: null
-          description: The role of the message sender, typically only in the first chunk.
-          title: Role
-        tool_calls:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ToolCallDelta'
-            type: array
-          - type: 'null'
-          default: null
-          description: The tool calls generated by the model in this chunk.
-          title: Tool Calls
-      title: ChunkDelta
+          title: Arguments
+      title: FunctionCallDelta
       type: object
       required: []
     Usage:
@@ -621,38 +619,30 @@ components:
       - total_tokens
       - cached_input_tokens
       title: Usage
-    FunctionCallDelta:
-      description: Streaming counterpart to FunctionCall; arguments arrives chunk-by-chunk and may be null.
+    Choice:
       properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          default: null
-          title: Name
-        arguments:
-          anyOf:
-          - type: string
-          - type: 'null'
-          default: null
-          title: Arguments
-      title: FunctionCallDelta
+        index:
+          type: integer
+          title: Index
+        message:
+          $ref: '#/components/schemas/Message'
+        finish_reason:
+          type:
+          - string
+          - 'null'
+          enum:
+          - stop
+          - length
+          - tool_calls
+          - content_filter
+          - null
+          description: The reason the model stopped generating tokens.
       type: object
-      required: []
-    ErrorResponse:
-      type: object
-      title: ErrorResponse
       required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorObject'
-      example:
-        error:
-          message: You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.
-          type: invalid_request_error
-          param: messages
-          code: context_length_exceeded
+      - index
+      - message
+      - finish_reason
+      title: Choice
     ResponseFormatJSONSchema:
       type: object
       title: ResponseFormatJSONSchema
@@ -666,50 +656,60 @@ components:
           description: The type of response format being defined. Always `json_schema`.
         json_schema:
           $ref: '#/components/schemas/JSONSchema'
-    FunctionDefinition:
-      type: object
-      title: FunctionDefinition
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: The name of the function to call. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
-        description:
-          type: string
-          description: A description of what the function does, used by the model to choose when and how to call the function.
-        parameters:
-          type: object
-          additionalProperties: true
-          description: The parameters the function accepts, described as a JSON Schema object.
-        strict:
-          type: boolean
-          default: false
-          description: Whether to enforce strict schema adherence when generating the function call. When true, the model output is constrained to match the `parameters` schema exactly.
-    ChunkChoice:
-      description: Represents a choice in a streaming response chunk.
+    ToolCallDelta:
+      description: Streaming counterpart to ToolCall; per OpenAI SSE spec, id/type only appear in the first chunk per index.
       properties:
         index:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          default: 0
           title: Index
-          type: integer
-        delta:
-          $ref: '#/components/schemas/ChunkDelta'
-        finish_reason:
-          type:
-          - string
-          - 'null'
-          enum:
-          - stop
-          - length
-          - tool_calls
-          - content_filter
-          - null
-          description: The reason the model stopped generating tokens.
-      required:
-      - index
-      - delta
-      title: ChunkChoice
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          title: Id
+        type:
+          anyOf:
+          - const: function
+            type: string
+          - type: 'null'
+          default: null
+          title: Type
+        function:
+          anyOf:
+          - $ref: '#/components/schemas/FunctionCallDelta'
+          - type: 'null'
+          default: null
+      title: ToolCallDelta
       type: object
+      required: []
+    StreamOptions:
+      properties:
+        include_usage:
+          type: boolean
+          title: Include Usage
+          description: 'If true, an additional chunk is streamed before the `data: [DONE]` message containing the token usage statistics for the entire request. Inside that chunk, `choices` is an empty array and the `usage` field is populated.'
+          default: false
+      type: object
+      title: StreamOptions
+      description: Options for controlling streaming behavior. Only used when `stream=true`.
+      required: []
+    ChatCompletionTool:
+      type: object
+      title: ChatCompletionTool
+      required:
+      - type
+      - function
+      properties:
+        type:
+          type: string
+          const: function
+          description: The type of the tool.
+        function:
+          $ref: '#/components/schemas/FunctionDefinition'
     ToolCall:
       properties:
         index:

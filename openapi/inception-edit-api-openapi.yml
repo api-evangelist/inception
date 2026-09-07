@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Inception Chat Edit API
   version: 1.0.0
@@ -145,6 +145,29 @@ paths:
         source: "import Inception from 'inceptionai';\n\nconst client = new Inception({\n  apiKey: process.env['INCEPTION_API_KEY'], // defaults to this env var; can be omitted\n});\n\nconst editCompletion = await client.edit.completions.create({\n  model: 'mercury-edit-2',\n  messages: [\n    {\n      role: 'user',\n      content: '<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\"hi\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\"hi\")<|cursor|>\\n<|/code_to_edit|>'\n    }\n  ]\n});\nconsole.log(editCompletion);"
 components:
   schemas:
+    EditMessage:
+      properties:
+        role:
+          type: string
+          const: assistant
+          title: Role
+          description: Edit responses are always from the assistant.
+          default: assistant
+        content:
+          anyOf:
+          - type: string
+          - items:
+              additionalProperties: true
+              type: object
+            type: array
+          - type: 'null'
+          title: Content
+          description: The model's edit output.
+      type: object
+      title: EditMessage
+      description: Edit response message. The model always responds as the assistant.
+      required:
+      - role
     EditMessageParam:
       properties:
         role:
@@ -168,74 +191,6 @@ components:
       - role
       title: EditMessageParam
       description: Edit request message. Edit endpoints only accept a single user message.
-    EditChoice:
-      properties:
-        index:
-          type: integer
-          title: Index
-        message:
-          $ref: '#/components/schemas/EditMessage'
-        finish_reason:
-          type:
-          - string
-          - 'null'
-          enum:
-          - stop
-          - length
-          - content_filter
-          - null
-          description: The reason the model stopped generating tokens.
-      type: object
-      required:
-      - index
-      - message
-      - finish_reason
-      title: EditChoice
-      description: Choice for edit completions.
-    EditCompletionRequest:
-      properties:
-        messages:
-          items:
-            $ref: '#/components/schemas/EditMessageParam'
-          type: array
-          title: Messages
-        model:
-          type: string
-          title: Model
-          description: The model to use for the edit completion.
-        max_tokens:
-          type: integer
-          title: Max Tokens
-          description: Maximum number of tokens to generate.
-          default: 1024
-          minimum: 1
-          maximum: 8192
-        temperature:
-          type: number
-          title: Temperature
-          description: What sampling temperature to use, between 0 and 2. Higher values make the output more random; lower values make it more focused and deterministic.
-          default: 0.2
-          minimum: 0.0
-          maximum: 2.0
-        top_p:
-          type: number
-          title: Top P
-          description: Float that controls the cumulative probability of the top tokens to consider.
-          default: 1.0
-          minimum: 0.0
-          maximum: 1.0
-        presence_penalty:
-          type: number
-          title: Presence Penalty
-          description: Number between -2 and 2. Positive values penalize tokens based on whether they have appeared in the text so far, increasing the model's likelihood to talk about new topics.
-          default: 1.0
-          minimum: -2.0
-          maximum: 2.0
-      type: object
-      required:
-      - messages
-      - model
-      title: EditCompletionRequest
     ErrorResponse:
       type: object
       title: ErrorResponse
@@ -273,32 +228,6 @@ components:
           - string
           - 'null'
           description: Machine-readable error code.
-    EditUsage:
-      properties:
-        prompt_tokens:
-          type: integer
-          title: Prompt Tokens
-        reasoning_tokens:
-          type: integer
-          title: Reasoning Tokens
-        completion_tokens:
-          type: integer
-          title: Completion Tokens
-        total_tokens:
-          type: integer
-          title: Total Tokens
-        cached_input_tokens:
-          type: integer
-          title: Cached Input Tokens
-      type: object
-      required:
-      - prompt_tokens
-      - reasoning_tokens
-      - completion_tokens
-      - total_tokens
-      - cached_input_tokens
-      title: EditUsage
-      description: Usage for edit completions.
     EditCompletionResponse:
       properties:
         id:
@@ -353,29 +282,100 @@ components:
           total_tokens: 174
           reasoning_tokens: 0
           cached_input_tokens: 0
-    EditMessage:
+    EditCompletionRequest:
       properties:
-        role:
+        messages:
+          items:
+            $ref: '#/components/schemas/EditMessageParam'
+          type: array
+          title: Messages
+        model:
           type: string
-          const: assistant
-          title: Role
-          description: Edit responses are always from the assistant.
-          default: assistant
-        content:
-          anyOf:
-          - type: string
-          - items:
-              additionalProperties: true
-              type: object
-            type: array
-          - type: 'null'
-          title: Content
-          description: The model's edit output.
+          title: Model
+          description: The model to use for the edit completion.
+        max_tokens:
+          type: integer
+          title: Max Tokens
+          description: Maximum number of tokens to generate.
+          default: 1024
+          minimum: 1
+          maximum: 8192
+        temperature:
+          type: number
+          title: Temperature
+          description: What sampling temperature to use, between 0 and 2. Higher values make the output more random; lower values make it more focused and deterministic.
+          default: 0.2
+          minimum: 0.0
+          maximum: 2.0
+        top_p:
+          type: number
+          title: Top P
+          description: Float that controls the cumulative probability of the top tokens to consider.
+          default: 1.0
+          minimum: 0.0
+          maximum: 1.0
+        presence_penalty:
+          type: number
+          title: Presence Penalty
+          description: Number between -2 and 2. Positive values penalize tokens based on whether they have appeared in the text so far, increasing the model's likelihood to talk about new topics.
+          default: 1.0
+          minimum: -2.0
+          maximum: 2.0
       type: object
-      title: EditMessage
-      description: Edit response message. The model always responds as the assistant.
       required:
-      - role
+      - messages
+      - model
+      title: EditCompletionRequest
+    EditUsage:
+      properties:
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+        reasoning_tokens:
+          type: integer
+          title: Reasoning Tokens
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+        total_tokens:
+          type: integer
+          title: Total Tokens
+        cached_input_tokens:
+          type: integer
+          title: Cached Input Tokens
+      type: object
+      required:
+      - prompt_tokens
+      - reasoning_tokens
+      - completion_tokens
+      - total_tokens
+      - cached_input_tokens
+      title: EditUsage
+      description: Usage for edit completions.
+    EditChoice:
+      properties:
+        index:
+          type: integer
+          title: Index
+        message:
+          $ref: '#/components/schemas/EditMessage'
+        finish_reason:
+          type:
+          - string
+          - 'null'
+          enum:
+          - stop
+          - length
+          - content_filter
+          - null
+          description: The reason the model stopped generating tokens.
+      type: object
+      required:
+      - index
+      - message
+      - finish_reason
+      title: EditChoice
+      description: Choice for edit completions.
   securitySchemes:
     BearerAuth:
       type: http

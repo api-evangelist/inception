@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Inception Chat FIM API
   version: 1.0.0
@@ -155,33 +155,6 @@ paths:
         source: "import Inception from 'inceptionai';\n\nconst client = new Inception({\n  apiKey: process.env['INCEPTION_API_KEY'], // defaults to this env var; can be omitted\n});\n\nconst fimCompletion = await client.fim.completions.create({\n  model: 'mercury-edit-2',\n  prompt: 'def fibonacci(n: int) -> int:\\n    if n <= 1:\\n        return n\\n    return ',\n  suffix: '\\n\\nprint(fibonacci(10))\\n',\n  max_tokens: 256\n});\nconsole.log(fimCompletion);"
 components:
   schemas:
-    TextChunkChoice:
-      description: Represents a choice in a streaming text completion response chunk.
-      properties:
-        index:
-          title: Index
-          type: integer
-        text:
-          anyOf:
-          - type: string
-          - type: 'null'
-          default: null
-          description: The text in this chunk.
-          title: Text
-        finish_reason:
-          type:
-          - string
-          - 'null'
-          enum:
-          - stop
-          - length
-          - content_filter
-          - null
-          description: The reason the model stopped generating tokens.
-      required:
-      - index
-      title: TextChunkChoice
-      type: object
     FIMCompletionResponse:
       properties:
         id:
@@ -259,6 +232,59 @@ components:
       - finish_reason
       title: TextCompletionChoice
       description: Choice for FIM completions.
+    TextChunkChoice:
+      description: Represents a choice in a streaming text completion response chunk.
+      properties:
+        index:
+          title: Index
+          type: integer
+        text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: The text in this chunk.
+          title: Text
+        finish_reason:
+          type:
+          - string
+          - 'null'
+          enum:
+          - stop
+          - length
+          - content_filter
+          - null
+          description: The reason the model stopped generating tokens.
+      required:
+      - index
+      title: TextChunkChoice
+      type: object
+    FIMUsage:
+      properties:
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+        reasoning_tokens:
+          type: integer
+          title: Reasoning Tokens
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+        total_tokens:
+          type: integer
+          title: Total Tokens
+        cached_input_tokens:
+          type: integer
+          title: Cached Input Tokens
+      type: object
+      required:
+      - prompt_tokens
+      - reasoning_tokens
+      - completion_tokens
+      - total_tokens
+      - cached_input_tokens
+      title: FIMUsage
+      description: Usage for FIM completions.
     ErrorResponse:
       type: object
       title: ErrorResponse
@@ -273,6 +299,40 @@ components:
           type: invalid_request_error
           param: messages
           code: context_length_exceeded
+    StreamOptions:
+      properties:
+        include_usage:
+          type: boolean
+          title: Include Usage
+          description: 'If true, an additional chunk is streamed before the `data: [DONE]` message containing the token usage statistics for the entire request. Inside that chunk, `choices` is an empty array and the `usage` field is populated.'
+          default: false
+      type: object
+      title: StreamOptions
+      description: Options for controlling streaming behavior. Only used when `stream=true`.
+      required: []
+    ErrorObject:
+      type: object
+      title: ErrorObject
+      required:
+      - message
+      - type
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
+        type:
+          type: string
+          description: Error category, e.g. `invalid_request_error`, `rate_limit_error`.
+        param:
+          type:
+          - string
+          - 'null'
+          description: Offending parameter, if applicable.
+        code:
+          type:
+          - string
+          - 'null'
+          description: Machine-readable error code.
     FIMCompletionRequest:
       properties:
         prompt:
@@ -383,66 +443,6 @@ components:
       - object
       title: TextCompletionChunk
       type: object
-    FIMUsage:
-      properties:
-        prompt_tokens:
-          type: integer
-          title: Prompt Tokens
-        reasoning_tokens:
-          type: integer
-          title: Reasoning Tokens
-        completion_tokens:
-          type: integer
-          title: Completion Tokens
-        total_tokens:
-          type: integer
-          title: Total Tokens
-        cached_input_tokens:
-          type: integer
-          title: Cached Input Tokens
-      type: object
-      required:
-      - prompt_tokens
-      - reasoning_tokens
-      - completion_tokens
-      - total_tokens
-      - cached_input_tokens
-      title: FIMUsage
-      description: Usage for FIM completions.
-    StreamOptions:
-      properties:
-        include_usage:
-          type: boolean
-          title: Include Usage
-          description: 'If true, an additional chunk is streamed before the `data: [DONE]` message containing the token usage statistics for the entire request. Inside that chunk, `choices` is an empty array and the `usage` field is populated.'
-          default: false
-      type: object
-      title: StreamOptions
-      description: Options for controlling streaming behavior. Only used when `stream=true`.
-      required: []
-    ErrorObject:
-      type: object
-      title: ErrorObject
-      required:
-      - message
-      - type
-      properties:
-        message:
-          type: string
-          description: Human-readable error message.
-        type:
-          type: string
-          description: Error category, e.g. `invalid_request_error`, `rate_limit_error`.
-        param:
-          type:
-          - string
-          - 'null'
-          description: Offending parameter, if applicable.
-        code:
-          type:
-          - string
-          - 'null'
-          description: Machine-readable error code.
   securitySchemes:
     BearerAuth:
       type: http

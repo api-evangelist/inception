@@ -15,6 +15,12 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "inception-chat-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "inception-edit-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "inception-fim-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "inception-models-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

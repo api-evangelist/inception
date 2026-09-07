@@ -128,6 +128,10 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Arazzo
+  url: arazzo/inception-chat-completion.arazzo.yml
+- type: Arazzo
+  url: arazzo/inception-code-autocomplete.arazzo.yml
 - type: Website
   url: https://inceptionlabs.ai
 - type: DeveloperPortal
