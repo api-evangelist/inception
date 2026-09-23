@@ -1,0 +1,35 @@
+# Front Door AI Index — inception — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: inception
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: inceptionlabs.ai
+  final_host: www.inceptionlabs.ai
+  ownership: own
+  owner: inception
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 51
+  host_score: 51
+  density: 39.94
+  words: 1277
+  tiers:
+    agentic: 10
+    core: 34
+    model: 7
+  ambiguous: 6
+  top_terms:
+    LLMs: 22
+    AI: 10
+    prompts: 6
+    agent: 4
+    OpenAI: 3
+    inference: 3
+    Bedrock: 2
+    diffusion model: 2
+    intelligence: 2
+    large language model: 2
+    fine-tune: 1

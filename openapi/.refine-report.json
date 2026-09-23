@@ -1,10 +1,7 @@
 {
   "provider": "inception",
   "sources": [
-    "inception-chat-api-openapi.yml",
-    "inception-edit-api-openapi.yml",
-    "inception-fim-api-openapi.yml",
-    "inception-models-api-openapi.yml"
+    "_original/inception-openapi-original.json"
   ],
   "outputs": [
     "inception-chat-api-openapi.yml",
@@ -16,11 +13,14 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "inception-chat-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "inception-edit-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "inception-fim-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "inception-models-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "inception-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "inception-chat-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "inception-edit-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "inception-fim-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "inception-models-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

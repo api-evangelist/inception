@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Inception Chat Models API
+  title: Inception Models API
   version: 1.0.0
   description: Inception Labs LLM API — chat, FIM, and edit completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes with extensions for diffusion-specific features.
   contact:
@@ -316,43 +316,6 @@ paths:
         source: "import Inception from 'inceptionai';\n\nconst client = new Inception({\n  apiKey: process.env['INCEPTION_API_KEY'], // defaults to this env var; can be omitted\n});\n\nconst models = await client.models.listEdit();\nconsole.log(models);"
 components:
   schemas:
-    PricingInfo:
-      properties:
-        prompt:
-          type: string
-          title: Prompt
-          description: Pricing per 1 token for input.
-        completion:
-          type: string
-          title: Completion
-          description: Pricing per 1 token for output.
-        input_cache_reads:
-          type: string
-          title: Input Cache Reads
-          description: Pricing per 1 token for cache reads.
-          default: '0'
-        input_cache_writes:
-          type: string
-          title: Input Cache Writes
-          description: Pricing per 1 token for cache writes.
-          default: '0'
-      type: object
-      required:
-      - prompt
-      - completion
-      title: PricingInfo
-      description: Pricing information for a model.
-    OpenRouterInfo:
-      properties:
-        slug:
-          type: string
-          title: Slug
-          description: OpenRouter slug for the model.
-      type: object
-      required:
-      - slug
-      title: OpenRouterInfo
-      description: Optional OpenRouter-specific information.
     ModelsResponse:
       properties:
         data:
@@ -393,31 +356,32 @@ components:
             slug: inception/mercury-2
           datacenters:
           - country_code: US
-    ErrorResponse:
-      type: object
-      title: ErrorResponse
-      required:
-      - error
+    PricingInfo:
       properties:
-        error:
-          $ref: '#/components/schemas/ErrorObject'
-      example:
-        error:
-          message: You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.
-          type: invalid_request_error
-          param: messages
-          code: context_length_exceeded
-    DataCenter:
-      properties:
-        country_code:
+        prompt:
           type: string
-          title: Country Code
-          description: ISO 3166 Alpha-2 country code.
+          title: Prompt
+          description: Pricing per 1 token for input.
+        completion:
+          type: string
+          title: Completion
+          description: Pricing per 1 token for output.
+        input_cache_reads:
+          type: string
+          title: Input Cache Reads
+          description: Pricing per 1 token for cache reads.
+          default: '0'
+        input_cache_writes:
+          type: string
+          title: Input Cache Writes
+          description: Pricing per 1 token for cache writes.
+          default: '0'
       type: object
       required:
-      - country_code
-      title: DataCenter
-      description: Datacenter location information.
+      - prompt
+      - completion
+      title: PricingInfo
+      description: Pricing information for a model.
     ErrorObject:
       type: object
       title: ErrorObject
@@ -523,6 +487,42 @@ components:
       - supported_features
       title: ModelObject
       description: Model information object.
+    OpenRouterInfo:
+      properties:
+        slug:
+          type: string
+          title: Slug
+          description: OpenRouter slug for the model.
+      type: object
+      required:
+      - slug
+      title: OpenRouterInfo
+      description: Optional OpenRouter-specific information.
+    ErrorResponse:
+      type: object
+      title: ErrorResponse
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+      example:
+        error:
+          message: You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.
+          type: invalid_request_error
+          param: messages
+          code: context_length_exceeded
+    DataCenter:
+      properties:
+        country_code:
+          type: string
+          title: Country Code
+          description: ISO 3166 Alpha-2 country code.
+      type: object
+      required:
+      - country_code
+      title: DataCenter
+      description: Datacenter location information.
   securitySchemes:
     BearerAuth:
       type: http

@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Inception Chat Edit API
+  title: Inception Edit API
   version: 1.0.0
   description: Inception Labs LLM API — chat, FIM, and edit completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes with extensions for diffusion-specific features.
   contact:
@@ -23,7 +23,7 @@ paths:
   /v1/edit/completions:
     post:
       summary: Create a code edit completion
-      description: Generate an edit to a code region given the surrounding context. The request must contain a single user message whose content includes the required edit prompt tags (e.g. `<|code_to_edit|>`, `<|cursor|>`, `<|current_file_content|>`). Returns an `EditCompletion` object. Streaming and tool calling are not supported on this endpoint.
+      description: Generate an edit to a code region given the surrounding context. The request must contain a single user message whose content includes the required edit prompt tags (e.g. ``, ``, ``). Returns an `EditCompletion` object. Streaming and tool calling are not supported on this endpoint.
       operationId: createEditCompletion
       requestBody:
         content:
@@ -145,29 +145,6 @@ paths:
         source: "import Inception from 'inceptionai';\n\nconst client = new Inception({\n  apiKey: process.env['INCEPTION_API_KEY'], // defaults to this env var; can be omitted\n});\n\nconst editCompletion = await client.edit.completions.create({\n  model: 'mercury-edit-2',\n  messages: [\n    {\n      role: 'user',\n      content: '<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\"hi\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\"hi\")<|cursor|>\\n<|/code_to_edit|>'\n    }\n  ]\n});\nconsole.log(editCompletion);"
 components:
   schemas:
-    EditMessage:
-      properties:
-        role:
-          type: string
-          const: assistant
-          title: Role
-          description: Edit responses are always from the assistant.
-          default: assistant
-        content:
-          anyOf:
-          - type: string
-          - items:
-              additionalProperties: true
-              type: object
-            type: array
-          - type: 'null'
-          title: Content
-          description: The model's edit output.
-      type: object
-      title: EditMessage
-      description: Edit response message. The model always responds as the assistant.
-      required:
-      - role
     EditMessageParam:
       properties:
         role:
@@ -191,20 +168,6 @@ components:
       - role
       title: EditMessageParam
       description: Edit request message. Edit endpoints only accept a single user message.
-    ErrorResponse:
-      type: object
-      title: ErrorResponse
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorObject'
-      example:
-        error:
-          message: You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.
-          type: invalid_request_error
-          param: messages
-          code: context_length_exceeded
     ErrorObject:
       type: object
       title: ErrorObject
@@ -228,6 +191,20 @@ components:
           - string
           - 'null'
           description: Machine-readable error code.
+    ErrorResponse:
+      type: object
+      title: ErrorResponse
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+      example:
+        error:
+          message: You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.
+          type: invalid_request_error
+          param: messages
+          code: context_length_exceeded
     EditCompletionResponse:
       properties:
         id:
@@ -282,6 +259,29 @@ components:
           total_tokens: 174
           reasoning_tokens: 0
           cached_input_tokens: 0
+    EditMessage:
+      properties:
+        role:
+          type: string
+          const: assistant
+          title: Role
+          description: Edit responses are always from the assistant.
+          default: assistant
+        content:
+          anyOf:
+          - type: string
+          - items:
+              additionalProperties: true
+              type: object
+            type: array
+          - type: 'null'
+          title: Content
+          description: The model's edit output.
+      type: object
+      title: EditMessage
+      description: Edit response message. The model always responds as the assistant.
+      required:
+      - role
     EditCompletionRequest:
       properties:
         messages:
@@ -326,6 +326,30 @@ components:
       - messages
       - model
       title: EditCompletionRequest
+    EditChoice:
+      properties:
+        index:
+          type: integer
+          title: Index
+        message:
+          $ref: '#/components/schemas/EditMessage'
+        finish_reason:
+          type:
+          - string
+          - 'null'
+          enum:
+          - stop
+          - length
+          - content_filter
+          - null
+          description: The reason the model stopped generating tokens.
+      type: object
+      required:
+      - index
+      - message
+      - finish_reason
+      title: EditChoice
+      description: Choice for edit completions.
     EditUsage:
       properties:
         prompt_tokens:
@@ -352,30 +376,6 @@ components:
       - cached_input_tokens
       title: EditUsage
       description: Usage for edit completions.
-    EditChoice:
-      properties:
-        index:
-          type: integer
-          title: Index
-        message:
-          $ref: '#/components/schemas/EditMessage'
-        finish_reason:
-          type:
-          - string
-          - 'null'
-          enum:
-          - stop
-          - length
-          - content_filter
-          - null
-          description: The reason the model stopped generating tokens.
-      type: object
-      required:
-      - index
-      - message
-      - finish_reason
-      title: EditChoice
-      description: Choice for edit completions.
   securitySchemes:
     BearerAuth:
       type: http

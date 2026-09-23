@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Inception Chat FIM API
+  title: Inception FIM API
   version: 1.0.0
   description: Inception Labs LLM API — chat, FIM, and edit completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes with extensions for diffusion-specific features.
   contact:
@@ -155,83 +155,43 @@ paths:
         source: "import Inception from 'inceptionai';\n\nconst client = new Inception({\n  apiKey: process.env['INCEPTION_API_KEY'], // defaults to this env var; can be omitted\n});\n\nconst fimCompletion = await client.fim.completions.create({\n  model: 'mercury-edit-2',\n  prompt: 'def fibonacci(n: int) -> int:\\n    if n <= 1:\\n        return n\\n    return ',\n  suffix: '\\n\\nprint(fibonacci(10))\\n',\n  max_tokens: 256\n});\nconsole.log(fimCompletion);"
 components:
   schemas:
-    FIMCompletionResponse:
+    StreamOptions:
       properties:
-        id:
-          type: string
-          title: Id
-        object:
-          type: string
-          const: text_completion
-          title: Object
-          default: text_completion
-        created:
+        include_usage:
+          type: boolean
+          title: Include Usage
+          description: 'If true, an additional chunk is streamed before the `data: [DONE]` message containing the token usage statistics for the entire request. Inside that chunk, `choices` is an empty array and the `usage` field is populated.'
+          default: false
+      type: object
+      title: StreamOptions
+      description: Options for controlling streaming behavior. Only used when `stream=true`.
+      required: []
+    FIMUsage:
+      properties:
+        prompt_tokens:
           type: integer
-          title: Created
-        model:
-          type: string
-          title: Model
-        choices:
-          items:
-            $ref: '#/components/schemas/TextCompletionChoice'
-          type: array
-          title: Choices
-        usage:
-          $ref: '#/components/schemas/FIMUsage'
-        warning:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Warning
+          title: Prompt Tokens
+        reasoning_tokens:
+          type: integer
+          title: Reasoning Tokens
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+        total_tokens:
+          type: integer
+          title: Total Tokens
+        cached_input_tokens:
+          type: integer
+          title: Cached Input Tokens
       type: object
       required:
-      - id
-      - created
-      - model
-      - choices
-      - usage
-      - object
-      title: FIMCompletionResponse
-      example:
-        id: cmpl-7a2b3c4d5e
-        object: text_completion
-        created: 1745798400
-        model: mercury-edit-2
-        choices:
-        - index: 0
-          finish_reason: stop
-          text: fibonacci(n - 1) + fibonacci(n - 2)
-        usage:
-          prompt_tokens: 24
-          completion_tokens: 14
-          total_tokens: 38
-          reasoning_tokens: 0
-          cached_input_tokens: 0
-    TextCompletionChoice:
-      properties:
-        index:
-          type: integer
-          title: Index
-        text:
-          type: string
-          title: Text
-        finish_reason:
-          type:
-          - string
-          - 'null'
-          enum:
-          - stop
-          - length
-          - content_filter
-          - null
-          description: The reason the model stopped generating tokens.
-      type: object
-      required:
-      - index
-      - text
-      - finish_reason
-      title: TextCompletionChoice
-      description: Choice for FIM completions.
+      - prompt_tokens
+      - reasoning_tokens
+      - completion_tokens
+      - total_tokens
+      - cached_input_tokens
+      title: FIMUsage
+      description: Usage for FIM completions.
     TextChunkChoice:
       description: Represents a choice in a streaming text completion response chunk.
       properties:
@@ -259,57 +219,6 @@ components:
       - index
       title: TextChunkChoice
       type: object
-    FIMUsage:
-      properties:
-        prompt_tokens:
-          type: integer
-          title: Prompt Tokens
-        reasoning_tokens:
-          type: integer
-          title: Reasoning Tokens
-        completion_tokens:
-          type: integer
-          title: Completion Tokens
-        total_tokens:
-          type: integer
-          title: Total Tokens
-        cached_input_tokens:
-          type: integer
-          title: Cached Input Tokens
-      type: object
-      required:
-      - prompt_tokens
-      - reasoning_tokens
-      - completion_tokens
-      - total_tokens
-      - cached_input_tokens
-      title: FIMUsage
-      description: Usage for FIM completions.
-    ErrorResponse:
-      type: object
-      title: ErrorResponse
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorObject'
-      example:
-        error:
-          message: You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.
-          type: invalid_request_error
-          param: messages
-          code: context_length_exceeded
-    StreamOptions:
-      properties:
-        include_usage:
-          type: boolean
-          title: Include Usage
-          description: 'If true, an additional chunk is streamed before the `data: [DONE]` message containing the token usage statistics for the entire request. Inside that chunk, `choices` is an empty array and the `usage` field is populated.'
-          default: false
-      type: object
-      title: StreamOptions
-      description: Options for controlling streaming behavior. Only used when `stream=true`.
-      required: []
     ErrorObject:
       type: object
       title: ErrorObject
@@ -333,6 +242,20 @@ components:
           - string
           - 'null'
           description: Machine-readable error code.
+    ErrorResponse:
+      type: object
+      title: ErrorResponse
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+      example:
+        error:
+          message: You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.
+          type: invalid_request_error
+          param: messages
+          code: context_length_exceeded
     FIMCompletionRequest:
       properties:
         prompt:
@@ -413,6 +336,31 @@ components:
       - prompt
       - model
       title: FIMCompletionRequest
+    TextCompletionChoice:
+      properties:
+        index:
+          type: integer
+          title: Index
+        text:
+          type: string
+          title: Text
+        finish_reason:
+          type:
+          - string
+          - 'null'
+          enum:
+          - stop
+          - length
+          - content_filter
+          - null
+          description: The reason the model stopped generating tokens.
+      type: object
+      required:
+      - index
+      - text
+      - finish_reason
+      title: TextCompletionChoice
+      description: Choice for FIM completions.
     TextCompletionChunk:
       description: Model for a single chunk in a streaming text completion response.
       properties:
@@ -443,6 +391,58 @@ components:
       - object
       title: TextCompletionChunk
       type: object
+    FIMCompletionResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        object:
+          type: string
+          const: text_completion
+          title: Object
+          default: text_completion
+        created:
+          type: integer
+          title: Created
+        model:
+          type: string
+          title: Model
+        choices:
+          items:
+            $ref: '#/components/schemas/TextCompletionChoice'
+          type: array
+          title: Choices
+        usage:
+          $ref: '#/components/schemas/FIMUsage'
+        warning:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Warning
+      type: object
+      required:
+      - id
+      - created
+      - model
+      - choices
+      - usage
+      - object
+      title: FIMCompletionResponse
+      example:
+        id: cmpl-7a2b3c4d5e
+        object: text_completion
+        created: 1745798400
+        model: mercury-edit-2
+        choices:
+        - index: 0
+          finish_reason: stop
+          text: fibonacci(n - 1) + fibonacci(n - 2)
+        usage:
+          prompt_tokens: 24
+          completion_tokens: 14
+          total_tokens: 38
+          reasoning_tokens: 0
+          cached_input_tokens: 0
   securitySchemes:
     BearerAuth:
       type: http
