@@ -316,6 +316,29 @@ paths:
         source: "import Inception from 'inceptionai';\n\nconst client = new Inception({\n  apiKey: process.env['INCEPTION_API_KEY'], // defaults to this env var; can be omitted\n});\n\nconst models = await client.models.listEdit();\nconsole.log(models);"
 components:
   schemas:
+    ErrorObject:
+      type: object
+      title: ErrorObject
+      required:
+      - message
+      - type
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
+        type:
+          type: string
+          description: Error category, e.g. `invalid_request_error`, `rate_limit_error`.
+        param:
+          type:
+          - string
+          - 'null'
+          description: Offending parameter, if applicable.
+        code:
+          type:
+          - string
+          - 'null'
+          description: Machine-readable error code.
     ModelsResponse:
       properties:
         data:
@@ -356,6 +379,20 @@ components:
             slug: inception/mercury-2
           datacenters:
           - country_code: US
+    ErrorResponse:
+      type: object
+      title: ErrorResponse
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+      example:
+        error:
+          message: You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.
+          type: invalid_request_error
+          param: messages
+          code: context_length_exceeded
     PricingInfo:
       properties:
         prompt:
@@ -382,29 +419,6 @@ components:
       - completion
       title: PricingInfo
       description: Pricing information for a model.
-    ErrorObject:
-      type: object
-      title: ErrorObject
-      required:
-      - message
-      - type
-      properties:
-        message:
-          type: string
-          description: Human-readable error message.
-        type:
-          type: string
-          description: Error category, e.g. `invalid_request_error`, `rate_limit_error`.
-        param:
-          type:
-          - string
-          - 'null'
-          description: Offending parameter, if applicable.
-        code:
-          type:
-          - string
-          - 'null'
-          description: Machine-readable error code.
     ModelObject:
       properties:
         id:
@@ -498,20 +512,6 @@ components:
       - slug
       title: OpenRouterInfo
       description: Optional OpenRouter-specific information.
-    ErrorResponse:
-      type: object
-      title: ErrorResponse
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorObject'
-      example:
-        error:
-          message: You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.
-          type: invalid_request_error
-          param: messages
-          code: context_length_exceeded
     DataCenter:
       properties:
         country_code:

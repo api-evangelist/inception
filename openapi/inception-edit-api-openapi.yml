@@ -145,29 +145,6 @@ paths:
         source: "import Inception from 'inceptionai';\n\nconst client = new Inception({\n  apiKey: process.env['INCEPTION_API_KEY'], // defaults to this env var; can be omitted\n});\n\nconst editCompletion = await client.edit.completions.create({\n  model: 'mercury-edit-2',\n  messages: [\n    {\n      role: 'user',\n      content: '<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\"hi\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\"hi\")<|cursor|>\\n<|/code_to_edit|>'\n    }\n  ]\n});\nconsole.log(editCompletion);"
 components:
   schemas:
-    EditMessageParam:
-      properties:
-        role:
-          type: string
-          const: user
-          title: Role
-          description: Edit requests only accept user messages.
-          default: user
-        content:
-          anyOf:
-          - type: string
-          - items:
-              additionalProperties: true
-              type: object
-            type: array
-          title: Content
-          description: The content of the edit request. Must contain the required edit prompt tags.
-      type: object
-      required:
-      - content
-      - role
-      title: EditMessageParam
-      description: Edit request message. Edit endpoints only accept a single user message.
     ErrorObject:
       type: object
       title: ErrorObject
@@ -191,6 +168,30 @@ components:
           - string
           - 'null'
           description: Machine-readable error code.
+    EditChoice:
+      properties:
+        index:
+          type: integer
+          title: Index
+        message:
+          $ref: '#/components/schemas/EditMessage'
+        finish_reason:
+          type:
+          - string
+          - 'null'
+          enum:
+          - stop
+          - length
+          - content_filter
+          - null
+          description: The reason the model stopped generating tokens.
+      type: object
+      required:
+      - index
+      - message
+      - finish_reason
+      title: EditChoice
+      description: Choice for edit completions.
     ErrorResponse:
       type: object
       title: ErrorResponse
@@ -205,60 +206,6 @@ components:
           type: invalid_request_error
           param: messages
           code: context_length_exceeded
-    EditCompletionResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        object:
-          type: string
-          const: edit.completion
-          title: Object
-          default: edit.completion
-        created:
-          type: integer
-          title: Created
-        model:
-          type: string
-          title: Model
-        choices:
-          items:
-            $ref: '#/components/schemas/EditChoice'
-          type: array
-          title: Choices
-        usage:
-          $ref: '#/components/schemas/EditUsage'
-        warning:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Warning
-      type: object
-      required:
-      - id
-      - created
-      - model
-      - choices
-      - usage
-      - object
-      title: EditCompletionResponse
-      example:
-        id: cmpl-7a2b3c4d5e
-        object: edit.completion
-        created: 1745798400
-        model: mercury-edit-2
-        choices:
-        - index: 0
-          finish_reason: stop
-          message:
-            role: assistant
-            content: "def greet(name):\n    print(f\"hi {name}\")\n"
-        usage:
-          prompt_tokens: 156
-          completion_tokens: 18
-          total_tokens: 174
-          reasoning_tokens: 0
-          cached_input_tokens: 0
     EditMessage:
       properties:
         role:
@@ -326,30 +273,60 @@ components:
       - messages
       - model
       title: EditCompletionRequest
-    EditChoice:
+    EditCompletionResponse:
       properties:
-        index:
+        id:
+          type: string
+          title: Id
+        object:
+          type: string
+          const: edit.completion
+          title: Object
+          default: edit.completion
+        created:
           type: integer
-          title: Index
-        message:
-          $ref: '#/components/schemas/EditMessage'
-        finish_reason:
-          type:
-          - string
-          - 'null'
-          enum:
-          - stop
-          - length
-          - content_filter
-          - null
-          description: The reason the model stopped generating tokens.
+          title: Created
+        model:
+          type: string
+          title: Model
+        choices:
+          items:
+            $ref: '#/components/schemas/EditChoice'
+          type: array
+          title: Choices
+        usage:
+          $ref: '#/components/schemas/EditUsage'
+        warning:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Warning
       type: object
       required:
-      - index
-      - message
-      - finish_reason
-      title: EditChoice
-      description: Choice for edit completions.
+      - id
+      - created
+      - model
+      - choices
+      - usage
+      - object
+      title: EditCompletionResponse
+      example:
+        id: cmpl-7a2b3c4d5e
+        object: edit.completion
+        created: 1745798400
+        model: mercury-edit-2
+        choices:
+        - index: 0
+          finish_reason: stop
+          message:
+            role: assistant
+            content: "def greet(name):\n    print(f\"hi {name}\")\n"
+        usage:
+          prompt_tokens: 156
+          completion_tokens: 18
+          total_tokens: 174
+          reasoning_tokens: 0
+          cached_input_tokens: 0
     EditUsage:
       properties:
         prompt_tokens:
@@ -376,6 +353,29 @@ components:
       - cached_input_tokens
       title: EditUsage
       description: Usage for edit completions.
+    EditMessageParam:
+      properties:
+        role:
+          type: string
+          const: user
+          title: Role
+          description: Edit requests only accept user messages.
+          default: user
+        content:
+          anyOf:
+          - type: string
+          - items:
+              additionalProperties: true
+              type: object
+            type: array
+          title: Content
+          description: The content of the edit request. Must contain the required edit prompt tags.
+      type: object
+      required:
+      - content
+      - role
+      title: EditMessageParam
+      description: Edit request message. Edit endpoints only accept a single user message.
   securitySchemes:
     BearerAuth:
       type: http
