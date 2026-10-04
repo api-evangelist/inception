@@ -316,31 +316,6 @@ paths:
         source: "import Inception from 'inceptionai';\n\nconst client = new Inception({\n  apiKey: process.env['INCEPTION_API_KEY'], // defaults to this env var; can be omitted\n});\n\nconst models = await client.models.listEdit();\nconsole.log(models);"
 components:
   schemas:
-    DataCenter:
-      properties:
-        country_code:
-          type: string
-          title: Country Code
-          description: ISO 3166 Alpha-2 country code.
-      type: object
-      required:
-      - country_code
-      title: DataCenter
-      description: Datacenter location information.
-    ErrorResponse:
-      type: object
-      title: ErrorResponse
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorObject'
-      example:
-        error:
-          message: You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.
-          type: invalid_request_error
-          param: messages
-          code: context_length_exceeded
     OpenRouterInfo:
       properties:
         slug:
@@ -352,6 +327,69 @@ components:
       - slug
       title: OpenRouterInfo
       description: Optional OpenRouter-specific information.
+    ErrorObject:
+      type: object
+      title: ErrorObject
+      required:
+      - message
+      - type
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
+        type:
+          type: string
+          description: Error category, e.g. `invalid_request_error`, `rate_limit_error`.
+        param:
+          type:
+          - string
+          - 'null'
+          description: Offending parameter, if applicable.
+        code:
+          type:
+          - string
+          - 'null'
+          description: Machine-readable error code.
+    ModelsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ModelObject'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: ModelsResponse
+      description: Response model for models endpoint.
+      example:
+        data:
+        - id: mercury-2
+          name: 'Inception: Mercury 2'
+          created: 1745798400
+          description: Mercury 2 diffusion language model for chat completions.
+          input_modalities:
+          - text
+          output_modalities:
+          - text
+          context_length: 128000
+          max_output_length: 50000
+          pricing:
+            prompt: '0.00000025'
+            completion: '0.00000075'
+            input_cache_reads: '0.000000025'
+            input_cache_writes: '0'
+          supported_sampling_parameters:
+          - temperature
+          - stop
+          supported_features:
+          - tools
+          - json_mode
+          - structured_outputs
+          openrouter:
+            slug: inception/mercury-2
+          datacenters:
+          - country_code: US
     PricingInfo:
       properties:
         prompt:
@@ -460,69 +498,31 @@ components:
       - supported_features
       title: ModelObject
       description: Model information object.
-    ErrorObject:
+    ErrorResponse:
       type: object
-      title: ErrorObject
+      title: ErrorResponse
       required:
-      - message
-      - type
+      - error
       properties:
-        message:
-          type: string
-          description: Human-readable error message.
-        type:
-          type: string
-          description: Error category, e.g. `invalid_request_error`, `rate_limit_error`.
-        param:
-          type:
-          - string
-          - 'null'
-          description: Offending parameter, if applicable.
-        code:
-          type:
-          - string
-          - 'null'
-          description: Machine-readable error code.
-    ModelsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ModelObject'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: ModelsResponse
-      description: Response model for models endpoint.
+        error:
+          $ref: '#/components/schemas/ErrorObject'
       example:
-        data:
-        - id: mercury-2
-          name: 'Inception: Mercury 2'
-          created: 1745798400
-          description: Mercury 2 diffusion language model for chat completions.
-          input_modalities:
-          - text
-          output_modalities:
-          - text
-          context_length: 128000
-          max_output_length: 50000
-          pricing:
-            prompt: '0.00000025'
-            completion: '0.00000075'
-            input_cache_reads: '0.000000025'
-            input_cache_writes: '0'
-          supported_sampling_parameters:
-          - temperature
-          - stop
-          supported_features:
-          - tools
-          - json_mode
-          - structured_outputs
-          openrouter:
-            slug: inception/mercury-2
-          datacenters:
-          - country_code: US
+        error:
+          message: You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.
+          type: invalid_request_error
+          param: messages
+          code: context_length_exceeded
+    DataCenter:
+      properties:
+        country_code:
+          type: string
+          title: Country Code
+          description: ISO 3166 Alpha-2 country code.
+      type: object
+      required:
+      - country_code
+      title: DataCenter
+      description: Datacenter location information.
   securitySchemes:
     BearerAuth:
       type: http

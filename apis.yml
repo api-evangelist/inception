@@ -72,20 +72,6 @@ tags_raw:
 - Machine-Learning
 - Foundation Models
 apis:
-- aid: inception:inception-chat-api
-  name: Inception Chat API
-  description: Chat completion endpoints (OpenAI-compatible).
-  humanURL: https://docs.inceptionlabs.ai/get-started/get-started
-  baseURL: https://api.inceptionlabs.ai
-  tags:
-  - Chat
-  properties:
-  - type: OpenAPI
-    url: openapi/inception-chat-api-openapi.yml
-  - type: Documentation
-    url: https://docs.inceptionlabs.ai/get-started/get-started
-  - type: APIReference
-    url: https://docs.inceptionlabs.ai/api-reference/chat/create-a-chat-completion
 - aid: inception:inception-edit-api
   name: Inception Edit API
   description: Code edit completion endpoints.
@@ -124,6 +110,20 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/inception-models-api-openapi.yml
+  - type: Documentation
+    url: https://docs.inceptionlabs.ai/get-started/get-started
+  - type: APIReference
+    url: https://docs.inceptionlabs.ai/api-reference/chat/create-a-chat-completion
+- aid: inception:inception-chat-completions-api
+  name: Inception Chat Completions API
+  description: Chat completion endpoints (OpenAI-compatible).
+  humanURL: https://docs.inceptionlabs.ai/get-started/get-started
+  baseURL: https://api.inceptionlabs.ai
+  tags:
+  - Chat Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/inception-chat-completions-api-openapi.yml
   - type: Documentation
     url: https://docs.inceptionlabs.ai/get-started/get-started
   - type: APIReference
