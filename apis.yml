@@ -47,6 +47,9 @@ x-tier-reason: enrichment-pipeline
 specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-07-19'
+x-docs-platform: mintlify
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
 tags:
 - Company
 - Ai Ml
@@ -56,6 +59,7 @@ tags:
 - Code Completion
 - Machine Learning
 - Developer Tools
+- Foundation Models
 tags_raw:
 - Company
 - Ai Ml
@@ -66,6 +70,7 @@ tags_raw:
 - Machine Learning
 - Developer Tools
 - Machine-Learning
+- Foundation Models
 apis:
 - aid: inception:inception-chat-api
   name: Inception Chat API
@@ -129,6 +134,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/inception-capability-edges.yml
+  name: Inception Business Capability Map
 - type: Arazzo
   url: arazzo/inception-chat-completion.arazzo.yml
 - type: Arazzo
