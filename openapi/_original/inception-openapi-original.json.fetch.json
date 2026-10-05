@@ -1,0 +1,12 @@
+{
+ "url": "https://api.inceptionlabs.ai/openapi.json",
+ "requested_url": "https://api.inceptionlabs.ai/openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 55551,
+ "sha256": "11704c92dd535f15b821a0708df7f9dadd9e83ee49cbc7d14d2c7fc3d359e596",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
