@@ -1,0 +1,38 @@
+slug: inception
+provider: Inception
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Chat
+  spec_file: inception-chat-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /v1/chat/completions createChatCompletion — 'chat, FIM, and edit completions powered
+    by Mercury diffusion language models'
+  reason: The surface is a hosted LLM inference endpoint, which realises Artificial Intelligence Management
+    (AI model serving); confidence moderated because the API only serves inference rather than managing
+    model lifecycle.
+- tag: FIM
+  spec_file: inception-fim-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /v1/fim/completions  createFimCompletion  Create a fill-in-the-middle completion — "powered
+    by Mercury diffusion language models"
+  reason: The tag exposes an LLM inference endpoint (fill-in-the-middle code/text completion). This is
+    AI model serving, best placed under Artificial Intelligence Management; no narrower SaaS capability
+    in the list describes LLM inference. Moderate confidence because inference serving is arguably a product
+    feature rather than AI lifecycle management.
