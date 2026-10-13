@@ -15,3 +15,45 @@
   relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
+- slug: inception-openrouter
+  label: OpenRouter
+  partner: openrouter
+  partner_name: OpenRouter
+  type: coverage
+  channel: partner-built
+  evidence: https://openrouter.ai/api/v1/models
+  source: edge
+  relationship: system-coverage
+  status: not-a-workflow
+  arazzo: null
+- slug: inception-litellm
+  label: LiteLLM
+  partner: litellm
+  partner_name: LiteLLM
+  type: coverage
+  channel: partner-built
+  evidence: https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json
+  source: edge
+  relationship: system-coverage
+  status: not-a-workflow
+  arazzo: null
+- slug: inception-openai
+  label: OpenAI
+  partner: openai
+  partner_name: OpenAI
+  type: contract
+  channel: provider-built
+  evidence: https://github.com/api-evangelist/inception/blob/main/openapi/inception-chat-completions-api-openapi.yml#L5
+  source: edge
+  relationship: compatible
+  contract_reference:
+    repo: inception
+    spec_file: inception-chat-completions-api-openapi.yml
+    property: description
+    value: OpenAI-compatible
+    note: 'inception declares OpenAI compatibility: ''description: Inception Labs LLM API — chat, FIM, and edit
+      completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes wi'''
+    detected_by: sweep-model-routing.py
+    detected: '2026-10-13'
+  status: not-a-workflow
+  arazzo: null
