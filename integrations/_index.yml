@@ -54,6 +54,6 @@
     note: 'inception declares OpenAI compatibility: ''description: Inception Labs LLM API — chat, FIM, and edit
       completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes wi'''
     detected_by: sweep-model-routing.py
-    detected: '2026-10-13'
+    detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null

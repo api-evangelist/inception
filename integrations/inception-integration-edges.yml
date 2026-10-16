@@ -86,6 +86,6 @@ edges:
     note: 'inception declares OpenAI compatibility: ''description: Inception Labs LLM API — chat, FIM, and edit
       completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes wi'''
     detected_by: sweep-model-routing.py
-    detected: '2026-10-13'
+    detected: '2026-10-15'
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
