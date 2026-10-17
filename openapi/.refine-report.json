@@ -9,16 +9,19 @@
     "inception-fim-api-openapi.yml",
     "inception-models-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "inception-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "superseded outputs removed: inception-chat-completions-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 4 total)"
   ],
   "skipped": [
-    "inception-chat-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "inception-chat-completions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "inception-edit-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "inception-fim-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "inception-models-api-openapi.yml: previously refined output, superseded by openapi/_original/"

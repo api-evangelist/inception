@@ -155,6 +155,68 @@ paths:
         source: "import Inception from 'inceptionai';\n\nconst client = new Inception({\n  apiKey: process.env['INCEPTION_API_KEY'], // defaults to this env var; can be omitted\n});\n\nconst fimCompletion = await client.fim.completions.create({\n  model: 'mercury-edit-2',\n  prompt: 'def fibonacci(n: int) -> int:\\n    if n <= 1:\\n        return n\\n    return ',\n  suffix: '\\n\\nprint(fibonacci(10))\\n',\n  max_tokens: 256\n});\nconsole.log(fimCompletion);"
 components:
   schemas:
+    TextCompletionChoice:
+      properties:
+        index:
+          type: integer
+          title: Index
+        text:
+          type: string
+          title: Text
+        finish_reason:
+          type:
+          - string
+          - 'null'
+          enum:
+          - stop
+          - length
+          - content_filter
+          - null
+          description: The reason the model stopped generating tokens.
+      type: object
+      required:
+      - index
+      - text
+      - finish_reason
+      title: TextCompletionChoice
+      description: Choice for FIM completions.
+    ErrorResponse:
+      type: object
+      title: ErrorResponse
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+      example:
+        error:
+          message: You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.
+          type: invalid_request_error
+          param: messages
+          code: context_length_exceeded
+    ErrorObject:
+      type: object
+      title: ErrorObject
+      required:
+      - message
+      - type
+      properties:
+        message:
+          type: string
+          description: Human-readable error message.
+        type:
+          type: string
+          description: Error category, e.g. `invalid_request_error`, `rate_limit_error`.
+        param:
+          type:
+          - string
+          - 'null'
+          description: Offending parameter, if applicable.
+        code:
+          type:
+          - string
+          - 'null'
+          description: Machine-readable error code.
     FIMCompletionResponse:
       properties:
         id:
@@ -207,6 +269,33 @@ components:
           total_tokens: 38
           reasoning_tokens: 0
           cached_input_tokens: 0
+    TextChunkChoice:
+      description: Represents a choice in a streaming text completion response chunk.
+      properties:
+        index:
+          title: Index
+          type: integer
+        text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: The text in this chunk.
+          title: Text
+        finish_reason:
+          type:
+          - string
+          - 'null'
+          enum:
+          - stop
+          - length
+          - content_filter
+          - null
+          description: The reason the model stopped generating tokens.
+      required:
+      - index
+      title: TextChunkChoice
+      type: object
     FIMCompletionRequest:
       properties:
         prompt:
@@ -298,121 +387,6 @@ components:
       title: StreamOptions
       description: Options for controlling streaming behavior. Only used when `stream=true`.
       required: []
-    ErrorObject:
-      type: object
-      title: ErrorObject
-      required:
-      - message
-      - type
-      properties:
-        message:
-          type: string
-          description: Human-readable error message.
-        type:
-          type: string
-          description: Error category, e.g. `invalid_request_error`, `rate_limit_error`.
-        param:
-          type:
-          - string
-          - 'null'
-          description: Offending parameter, if applicable.
-        code:
-          type:
-          - string
-          - 'null'
-          description: Machine-readable error code.
-    TextCompletionChoice:
-      properties:
-        index:
-          type: integer
-          title: Index
-        text:
-          type: string
-          title: Text
-        finish_reason:
-          type:
-          - string
-          - 'null'
-          enum:
-          - stop
-          - length
-          - content_filter
-          - null
-          description: The reason the model stopped generating tokens.
-      type: object
-      required:
-      - index
-      - text
-      - finish_reason
-      title: TextCompletionChoice
-      description: Choice for FIM completions.
-    FIMUsage:
-      properties:
-        prompt_tokens:
-          type: integer
-          title: Prompt Tokens
-        reasoning_tokens:
-          type: integer
-          title: Reasoning Tokens
-        completion_tokens:
-          type: integer
-          title: Completion Tokens
-        total_tokens:
-          type: integer
-          title: Total Tokens
-        cached_input_tokens:
-          type: integer
-          title: Cached Input Tokens
-      type: object
-      required:
-      - prompt_tokens
-      - reasoning_tokens
-      - completion_tokens
-      - total_tokens
-      - cached_input_tokens
-      title: FIMUsage
-      description: Usage for FIM completions.
-    TextChunkChoice:
-      description: Represents a choice in a streaming text completion response chunk.
-      properties:
-        index:
-          title: Index
-          type: integer
-        text:
-          anyOf:
-          - type: string
-          - type: 'null'
-          default: null
-          description: The text in this chunk.
-          title: Text
-        finish_reason:
-          type:
-          - string
-          - 'null'
-          enum:
-          - stop
-          - length
-          - content_filter
-          - null
-          description: The reason the model stopped generating tokens.
-      required:
-      - index
-      title: TextChunkChoice
-      type: object
-    ErrorResponse:
-      type: object
-      title: ErrorResponse
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorObject'
-      example:
-        error:
-          message: You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.
-          type: invalid_request_error
-          param: messages
-          code: context_length_exceeded
     TextCompletionChunk:
       description: Model for a single chunk in a streaming text completion response.
       properties:
@@ -443,6 +417,32 @@ components:
       - object
       title: TextCompletionChunk
       type: object
+    FIMUsage:
+      properties:
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+        reasoning_tokens:
+          type: integer
+          title: Reasoning Tokens
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+        total_tokens:
+          type: integer
+          title: Total Tokens
+        cached_input_tokens:
+          type: integer
+          title: Cached Input Tokens
+      type: object
+      required:
+      - prompt_tokens
+      - reasoning_tokens
+      - completion_tokens
+      - total_tokens
+      - cached_input_tokens
+      title: FIMUsage
+      description: Usage for FIM completions.
   securitySchemes:
     BearerAuth:
       type: http
