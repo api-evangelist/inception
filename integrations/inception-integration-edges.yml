@@ -29,73 +29,6 @@ edges:
   seller_name: Inception
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
-- partner_name: OpenRouter
-  partner: openrouter
-  partner_match: router
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: system-coverage
-  evidence: https://openrouter.ai/api/v1/models
-  coverage_role:
-  - inference-host
-  - model-maker
-  router_signals:
-    model-maker:
-      models: 2
-      router_ids:
-      - inception
-      tools_share: 1.0
-      structured_output_share: 1.0
-    inference-host:
-      models: 2
-      router_ids:
-      - Inception
-      tools_share: 1.0
-      structured_output_share: 1.0
-  matched_by: verified-token-table
-  detected_by: sweep-model-routing.py
-  first_seen: '2026-10-13'
-- partner_name: LiteLLM
-  partner: litellm
-  partner_match: router
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: system-coverage
-  evidence: https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json
-  coverage_role:
-  - provider
-  router_signals:
-    provider:
-      models: 3
-      router_ids:
-      - inception
-      - text-completion-inception
-      tools_share: 1.0
-      structured_output_share: 1.0
-  matched_by: verified-token-table
-  detected_by: sweep-model-routing.py
-  first_seen: '2026-10-13'
-- partner_name: OpenAI
-  partner: openai
-  partner_match: domain
-  type: contract
-  channel: provider-built
-  relationship: compatible
-  direction: provider-built
-  evidence: https://github.com/api-evangelist/inception/blob/main/openapi/inception-chat-completions-api-openapi.yml#L5
-  contract_reference:
-    repo: inception
-    spec_file: inception-chat-completions-api-openapi.yml
-    property: description
-    value: OpenAI-compatible
-    note: 'inception declares OpenAI compatibility: ''description: Inception Labs LLM API — chat, FIM, and edit
-      completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes wi'''
-    detected_by: sweep-model-routing.py
-    detected: '2026-10-15'
-  detected_by: sweep-model-routing.py
-  first_seen: '2026-10-13'
 - partner_name: npm registry
   partner: npm
   partner_match: register
@@ -156,11 +89,78 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
+- partner_name: OpenRouter
+  partner: openrouter
+  partner_match: router
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://openrouter.ai/api/v1/models
+  coverage_role:
+  - inference-host
+  - model-maker
+  router_signals:
+    model-maker:
+      models: 3
+      router_ids:
+      - inception
+      tools_share: 1.0
+      structured_output_share: 1.0
+    inference-host:
+      models: 3
+      router_ids:
+      - Inception
+      tools_share: 1.0
+      structured_output_share: 1.0
+  matched_by: verified-token-table
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
+- partner_name: LiteLLM
+  partner: litellm
+  partner_match: router
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json
+  coverage_role:
+  - provider
+  router_signals:
+    provider:
+      models: 3
+      router_ids:
+      - inception
+      - text-completion-inception
+      tools_share: 1.0
+      structured_output_share: 1.0
+  matched_by: verified-token-table
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
+- partner_name: OpenAI
+  partner: openai
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  evidence: https://github.com/api-evangelist/inception/blob/main/openapi/inception-chat-completions-api-openapi.yml#L5
+  contract_reference:
+    repo: inception
+    spec_file: inception-chat-completions-api-openapi.yml
+    property: description
+    value: OpenAI-compatible
+    note: 'inception declares OpenAI compatibility: ''description: Inception Labs LLM API — chat, FIM, and edit
+      completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes wi'''
+    detected_by: sweep-model-routing.py
+    detected: '2026-10-19'
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
 source:
-- https://api.nuget.org/v3
-- https://crates.io/api/v1
-- https://proxy.golang.org
-- https://pypi.org/pypi
 - https://registry.npmjs.org
-- https://repo1.maven.org/maven2
+- https://pypi.org/pypi
 - https://rubygems.org/api/v1
+- https://crates.io/api/v1
+- https://repo1.maven.org/maven2
+- https://api.nuget.org/v3
+- https://proxy.golang.org
