@@ -381,3 +381,9 @@ components:
       type: http
       scheme: bearer
       description: 'API key provided as a Bearer token: `Authorization: Bearer <api_key>`. Get an API key at https://platform.inceptionlabs.ai.'
+x-provenance:
+  method: harvested
+  publisher: Inception
+  source: https://api.inceptionlabs.ai/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
