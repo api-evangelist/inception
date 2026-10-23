@@ -133,6 +133,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/inception/overview
 - type: CapabilityMap
   url: capabilities/inception-capability-edges.yml
   name: Inception Business Capability Map
