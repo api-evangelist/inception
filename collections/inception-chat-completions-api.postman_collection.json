@@ -1,0 +1,520 @@
+{
+  "info": {
+    "_postman_id": "2119e268-4b4d-479f-8100-e22cf5b2a25d",
+    "name": "Inception Chat API",
+    "description": "Inception Labs LLM API \u2014 chat, FIM, and edit completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes with extensions for diffusion-specific features.\n\nContact Support:\n Name: Inception Labs\n Email: support@inceptionlabs.ai",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:23:35.000Z",
+    "updatedAt": "2026-10-22T01:23:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2119e268-4b4d-479f-8100-e22cf5b2a25d"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "chat",
+          "item": [
+            {
+              "name": "completions",
+              "item": [
+                {
+                  "name": "Create a chat completion",
+                  "id": "fb92bf8c-4e22-471f-8316-302da8802da7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    },\n    {\n      \"role\": \"tool\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 16384,\n  \"temperature\": 0.75,\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"laborum6a\": -49759173.68676717,\n          \"etb\": 24385279\n        },\n        \"strict\": false\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"amet_7\": \"anim ut\",\n          \"voluptatec_\": 54967138.21696898\n        },\n        \"strict\": false\n      }\n    }\n  ],\n  \"tool_choice\": \"none\",\n  \"stream\": false,\n  \"stream_options\": {\n    \"include_usage\": false\n  },\n  \"diffusing\": false,\n  \"extra_body\": {\n    \"fugiat_\": -84356167,\n    \"ea_f15\": 40289837.308813095,\n    \"ipsum_b42\": true\n  },\n  \"realtime\": false,\n  \"response_format\": {\n    \"type\": \"<string>\"\n  },\n  \"reasoning_summary\": false,\n  \"reasoning_summary_wait\": false,\n  \"reasoning_effort\": \"medium\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/chat/completions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "chat",
+                        "completions"
+                      ]
+                    },
+                    "description": "Generate a chat completion from a sequence of messages. Returns a `ChatCompletion` object, or a server-sent events stream of `ChatCompletionChunk` deltas when `stream=true`. Supports tool calling, structured output via `response_format`, and reasoning controls."
+                  },
+                  "response": [
+                    {
+                      "id": "ddacc246-576c-4907-8c2a-74b064829263",
+                      "name": "Successful response. Returns a JSON object when `stream=false`, or a server-sent events stream of `ChatCompletionChunk` objects (terminated by `data: [DONE]`) when `stream=true`.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    },\n    {\n      \"role\": \"tool\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 16384,\n  \"temperature\": 0.75,\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"laborum6a\": -49759173.68676717,\n          \"etb\": 24385279\n        },\n        \"strict\": false\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"amet_7\": \"anim ut\",\n          \"voluptatec_\": 54967138.21696898\n        },\n        \"strict\": false\n      }\n    }\n  ],\n  \"tool_choice\": \"none\",\n  \"stream\": false,\n  \"stream_options\": {\n    \"include_usage\": false\n  },\n  \"diffusing\": false,\n  \"extra_body\": {\n    \"fugiat_\": -84356167,\n    \"ea_f15\": 40289837.308813095,\n    \"ipsum_b42\": true\n  },\n  \"realtime\": false,\n  \"response_format\": {\n    \"type\": \"<string>\"\n  },\n  \"reasoning_summary\": false,\n  \"reasoning_summary_wait\": false,\n  \"reasoning_effort\": \"medium\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"created\": \"<integer>\",\n  \"model\": \"<string>\",\n  \"choices\": [\n    {\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"function\",\n        \"content\": \"<string>\",\n        \"tool_calls\": [\n          {\n            \"id\": \"<string>\",\n            \"function\": {\n              \"arguments\": \"<string>\",\n              \"name\": \"<string>\"\n            },\n            \"type\": \"function\",\n            \"index\": \"<integer>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"function\": {\n              \"arguments\": \"<string>\",\n              \"name\": \"<string>\"\n            },\n            \"type\": \"function\",\n            \"index\": \"<integer>\"\n          }\n        ],\n        \"tool_call_id\": \"<string>\"\n      },\n      \"finish_reason\": \"content_filter\"\n    },\n    {\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"user\",\n        \"content\": \"<string>\",\n        \"tool_calls\": [\n          {\n            \"id\": \"<string>\",\n            \"function\": {\n              \"arguments\": \"<string>\",\n              \"name\": \"<string>\"\n            },\n            \"type\": \"function\",\n            \"index\": \"<integer>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"function\": {\n              \"arguments\": \"<string>\",\n              \"name\": \"<string>\"\n            },\n            \"type\": \"function\",\n            \"index\": \"<integer>\"\n          }\n        ],\n        \"tool_call_id\": \"<string>\"\n      },\n      \"finish_reason\": \"content_filter\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": \"<integer>\",\n    \"reasoning_tokens\": \"<integer>\",\n    \"completion_tokens\": \"<integer>\",\n    \"total_tokens\": \"<integer>\",\n    \"cached_input_tokens\": \"<integer>\"\n  },\n  \"object\": \"chat.completion\",\n  \"warning\": \"<string>\",\n  \"reasoning_summary\": {\n    \"content\": \"<string>\",\n    \"status\": \"unavailable\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:23:36.000Z",
+                      "updatedAt": "2026-10-22T01:23:36.000Z",
+                      "uid": "35240-ddacc246-576c-4907-8c2a-74b064829263"
+                    },
+                    {
+                      "id": "c6a78036-87c2-496f-a998-da04b80533c6",
+                      "name": "Bad Request \u2014 invalid parameters.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    },\n    {\n      \"role\": \"tool\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 16384,\n  \"temperature\": 0.75,\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"laborum6a\": -49759173.68676717,\n          \"etb\": 24385279\n        },\n        \"strict\": false\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"amet_7\": \"anim ut\",\n          \"voluptatec_\": 54967138.21696898\n        },\n        \"strict\": false\n      }\n    }\n  ],\n  \"tool_choice\": \"none\",\n  \"stream\": false,\n  \"stream_options\": {\n    \"include_usage\": false\n  },\n  \"diffusing\": false,\n  \"extra_body\": {\n    \"fugiat_\": -84356167,\n    \"ea_f15\": 40289837.308813095,\n    \"ipsum_b42\": true\n  },\n  \"realtime\": false,\n  \"response_format\": {\n    \"type\": \"<string>\"\n  },\n  \"reasoning_summary\": false,\n  \"reasoning_summary_wait\": false,\n  \"reasoning_effort\": \"medium\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:23:36.000Z",
+                      "updatedAt": "2026-10-22T01:23:36.000Z",
+                      "uid": "35240-c6a78036-87c2-496f-a998-da04b80533c6"
+                    },
+                    {
+                      "id": "3a38ba8e-a0c5-4cd5-b006-d1e8f3115d68",
+                      "name": "Unauthorized \u2014 missing or invalid API key.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    },\n    {\n      \"role\": \"tool\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 16384,\n  \"temperature\": 0.75,\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"laborum6a\": -49759173.68676717,\n          \"etb\": 24385279\n        },\n        \"strict\": false\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"amet_7\": \"anim ut\",\n          \"voluptatec_\": 54967138.21696898\n        },\n        \"strict\": false\n      }\n    }\n  ],\n  \"tool_choice\": \"none\",\n  \"stream\": false,\n  \"stream_options\": {\n    \"include_usage\": false\n  },\n  \"diffusing\": false,\n  \"extra_body\": {\n    \"fugiat_\": -84356167,\n    \"ea_f15\": 40289837.308813095,\n    \"ipsum_b42\": true\n  },\n  \"realtime\": false,\n  \"response_format\": {\n    \"type\": \"<string>\"\n  },\n  \"reasoning_summary\": false,\n  \"reasoning_summary_wait\": false,\n  \"reasoning_effort\": \"medium\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:23:36.000Z",
+                      "updatedAt": "2026-10-22T01:23:36.000Z",
+                      "uid": "35240-3a38ba8e-a0c5-4cd5-b006-d1e8f3115d68"
+                    },
+                    {
+                      "id": "28fca80b-9219-4057-83fc-77b038d4654d",
+                      "name": "Payment Required \u2014 billing inactive or quota exceeded.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    },\n    {\n      \"role\": \"tool\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 16384,\n  \"temperature\": 0.75,\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"laborum6a\": -49759173.68676717,\n          \"etb\": 24385279\n        },\n        \"strict\": false\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"amet_7\": \"anim ut\",\n          \"voluptatec_\": 54967138.21696898\n        },\n        \"strict\": false\n      }\n    }\n  ],\n  \"tool_choice\": \"none\",\n  \"stream\": false,\n  \"stream_options\": {\n    \"include_usage\": false\n  },\n  \"diffusing\": false,\n  \"extra_body\": {\n    \"fugiat_\": -84356167,\n    \"ea_f15\": 40289837.308813095,\n    \"ipsum_b42\": true\n  },\n  \"realtime\": false,\n  \"response_format\": {\n    \"type\": \"<string>\"\n  },\n  \"reasoning_summary\": false,\n  \"reasoning_summary_wait\": false,\n  \"reasoning_effort\": \"medium\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Payment Required",
+                      "code": 402,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:23:36.000Z",
+                      "updatedAt": "2026-10-22T01:23:36.000Z",
+                      "uid": "35240-28fca80b-9219-4057-83fc-77b038d4654d"
+                    },
+                    {
+                      "id": "d44c087e-c31a-4139-8861-a3fcd34a1f0e",
+                      "name": "Not Found \u2014 model not available for this account.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    },\n    {\n      \"role\": \"tool\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 16384,\n  \"temperature\": 0.75,\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"laborum6a\": -49759173.68676717,\n          \"etb\": 24385279\n        },\n        \"strict\": false\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"amet_7\": \"anim ut\",\n          \"voluptatec_\": 54967138.21696898\n        },\n        \"strict\": false\n      }\n    }\n  ],\n  \"tool_choice\": \"none\",\n  \"stream\": false,\n  \"stream_options\": {\n    \"include_usage\": false\n  },\n  \"diffusing\": false,\n  \"extra_body\": {\n    \"fugiat_\": -84356167,\n    \"ea_f15\": 40289837.308813095,\n    \"ipsum_b42\": true\n  },\n  \"realtime\": false,\n  \"response_format\": {\n    \"type\": \"<string>\"\n  },\n  \"reasoning_summary\": false,\n  \"reasoning_summary_wait\": false,\n  \"reasoning_effort\": \"medium\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:23:36.000Z",
+                      "updatedAt": "2026-10-22T01:23:36.000Z",
+                      "uid": "35240-d44c087e-c31a-4139-8861-a3fcd34a1f0e"
+                    },
+                    {
+                      "id": "35009c62-3421-497c-b7a5-0c718e5b0ba2",
+                      "name": "Too Many Requests \u2014 rate limit exceeded.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    },\n    {\n      \"role\": \"tool\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 16384,\n  \"temperature\": 0.75,\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"laborum6a\": -49759173.68676717,\n          \"etb\": 24385279\n        },\n        \"strict\": false\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"amet_7\": \"anim ut\",\n          \"voluptatec_\": 54967138.21696898\n        },\n        \"strict\": false\n      }\n    }\n  ],\n  \"tool_choice\": \"none\",\n  \"stream\": false,\n  \"stream_options\": {\n    \"include_usage\": false\n  },\n  \"diffusing\": false,\n  \"extra_body\": {\n    \"fugiat_\": -84356167,\n    \"ea_f15\": 40289837.308813095,\n    \"ipsum_b42\": true\n  },\n  \"realtime\": false,\n  \"response_format\": {\n    \"type\": \"<string>\"\n  },\n  \"reasoning_summary\": false,\n  \"reasoning_summary_wait\": false,\n  \"reasoning_effort\": \"medium\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:23:36.000Z",
+                      "updatedAt": "2026-10-22T01:23:36.000Z",
+                      "uid": "35240-35009c62-3421-497c-b7a5-0c718e5b0ba2"
+                    },
+                    {
+                      "id": "bdb90316-6eca-4e7a-840d-c9575bdf6791",
+                      "name": "Internal Server Error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    },\n    {\n      \"role\": \"tool\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"function\": {\n            \"arguments\": \"<string>\",\n            \"name\": \"<string>\"\n          },\n          \"type\": \"function\",\n          \"index\": \"<integer>\"\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 16384,\n  \"temperature\": 0.75,\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"laborum6a\": -49759173.68676717,\n          \"etb\": 24385279\n        },\n        \"strict\": false\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"amet_7\": \"anim ut\",\n          \"voluptatec_\": 54967138.21696898\n        },\n        \"strict\": false\n      }\n    }\n  ],\n  \"tool_choice\": \"none\",\n  \"stream\": false,\n  \"stream_options\": {\n    \"include_usage\": false\n  },\n  \"diffusing\": false,\n  \"extra_body\": {\n    \"fugiat_\": -84356167,\n    \"ea_f15\": 40289837.308813095,\n    \"ipsum_b42\": true\n  },\n  \"realtime\": false,\n  \"response_format\": {\n    \"type\": \"<string>\"\n  },\n  \"reasoning_summary\": false,\n  \"reasoning_summary_wait\": false,\n  \"reasoning_effort\": \"medium\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:23:36.000Z",
+                      "updatedAt": "2026-10-22T01:23:36.000Z",
+                      "uid": "35240-bdb90316-6eca-4e7a-840d-c9575bdf6791"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:23:36.000Z",
+                  "updatedAt": "2026-10-22T01:23:36.000Z",
+                  "uid": "35240-fb92bf8c-4e22-471f-8316-302da8802da7"
+                }
+              ],
+              "id": "c4b0d24f-5abf-4b57-b74e-13fd25b0a2f1",
+              "createdAt": "2026-10-22T01:23:36.000Z",
+              "updatedAt": "2026-10-22T01:23:36.000Z",
+              "uid": "35240-c4b0d24f-5abf-4b57-b74e-13fd25b0a2f1"
+            }
+          ],
+          "id": "2129a8f2-9588-425c-b8c5-da75b5553e44",
+          "createdAt": "2026-10-22T01:23:36.000Z",
+          "updatedAt": "2026-10-22T01:23:36.000Z",
+          "uid": "35240-2129a8f2-9588-425c-b8c5-da75b5553e44"
+        }
+      ],
+      "id": "6ff0f712-72d4-4ef7-9401-af6a2f724537",
+      "createdAt": "2026-10-22T01:23:36.000Z",
+      "updatedAt": "2026-10-22T01:23:36.000Z",
+      "uid": "35240-6ff0f712-72d4-4ef7-9401-af6a2f724537"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.inceptionlabs.ai"
+    }
+  ]
+}

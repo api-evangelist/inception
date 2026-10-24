@@ -1,751 +1,821 @@
 {
+  "info": {
+    "_postman_id": "e13ba196-02b5-4442-90be-6da9d6be2b54",
+    "name": "Inception Models API",
+    "description": "Inception Labs LLM API \u2014 chat, FIM, and edit completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes with extensions for diffusion-specific features.\n\nContact Support:\n Name: Inception Labs\n Email: support@inceptionlabs.ai",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:23:23.000Z",
+    "updatedAt": "2026-10-22T01:23:23.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e13ba196-02b5-4442-90be-6da9d6be2b54"
+  },
   "item": [
     {
-      "id": "94097c08-4c10-45a8-8b25-54b68db15b63",
-      "name": "Models",
-      "description": {
-        "content": "List available models.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "4762a0f3-bcf2-4090-974a-a1b9fb6dd994",
-          "name": "List available models",
-          "request": {
-            "name": "List available models",
-            "description": {
-              "content": "List the models currently available through the API.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "models"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "models",
+          "item": [
             {
-              "id": "3e0157e8-e618-462b-9bee-d06ca3b60ff2",
-              "name": "Successful Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+              "name": "List available models",
+              "id": "46d86494-eea9-4704-9205-d3c85a68d9f9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
                 },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"mercury-2\",\n      \"name\": \"Inception: Mercury 2\",\n      \"created\": 1745798400,\n      \"description\": \"Mercury 2 diffusion language model for chat completions.\",\n      \"input_modalities\": [\n        \"text\"\n      ],\n      \"output_modalities\": [\n        \"text\"\n      ],\n      \"context_length\": 128000,\n      \"max_output_length\": 50000,\n      \"pricing\": {\n        \"prompt\": \"0.00000025\",\n        \"completion\": \"0.00000075\",\n        \"input_cache_reads\": \"0.000000025\",\n        \"input_cache_writes\": \"0\"\n      },\n      \"supported_sampling_parameters\": [\n        \"temperature\",\n        \"stop\"\n      ],\n      \"supported_features\": [\n        \"tools\",\n        \"json_mode\",\n        \"structured_outputs\"\n      ],\n      \"openrouter\": {\n        \"slug\": \"inception/mercury-2\"\n      },\n      \"datacenters\": [\n        {\n          \"country_code\": \"US\"\n        }\n      ]\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "938edfc8-fd3d-49c5-a86f-114a58d92c02",
-              "name": "Unauthorized — missing or invalid API key.",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "v1",
-                    "models"
-                  ],
+                  "raw": "{{baseUrl}}/v1/models",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"message\": \"Incorrect API key provided\",\n    \"type\": \"authentication_error\",\n    \"param\": null,\n    \"code\": \"invalid_api_key\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b73da885-3a3d-4387-98f9-74e636607dbf",
-              "name": "Internal Server Error.",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "v1",
                     "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "List the models currently available through the API."
               },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "b3911965-0d47-4d26-b733-4fe29e800397",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/models",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "models"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"created\": \"<integer>\",\n      \"input_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"output_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"context_length\": \"<integer>\",\n      \"max_output_length\": \"<integer>\",\n      \"pricing\": {\n        \"prompt\": \"<string>\",\n        \"completion\": \"<string>\",\n        \"input_cache_reads\": \"0\",\n        \"input_cache_writes\": \"0\"\n      },\n      \"supported_sampling_parameters\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"supported_features\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"openrouter\": {\n        \"slug\": \"<string>\"\n      },\n      \"datacenters\": [\n        {\n          \"country_code\": \"<string>\"\n        },\n        {\n          \"country_code\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"created\": \"<integer>\",\n      \"input_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"output_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"context_length\": \"<integer>\",\n      \"max_output_length\": \"<integer>\",\n      \"pricing\": {\n        \"prompt\": \"<string>\",\n        \"completion\": \"<string>\",\n        \"input_cache_reads\": \"0\",\n        \"input_cache_writes\": \"0\"\n      },\n      \"supported_sampling_parameters\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"supported_features\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"openrouter\": {\n        \"slug\": \"<string>\"\n      },\n      \"datacenters\": [\n        {\n          \"country_code\": \"<string>\"\n        },\n        {\n          \"country_code\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:23:24.000Z",
+                  "updatedAt": "2026-10-22T01:23:24.000Z",
+                  "uid": "35240-b3911965-0d47-4d26-b733-4fe29e800397"
+                },
+                {
+                  "id": "e877959f-12ee-4245-bac9-abd65e94149a",
+                  "name": "Unauthorized \u2014 missing or invalid API key.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/models",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "models"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                  "createdAt": "2026-10-22T01:23:24.000Z",
+                  "updatedAt": "2026-10-22T01:23:24.000Z",
+                  "uid": "35240-e877959f-12ee-4245-bac9-abd65e94149a"
+                },
+                {
+                  "id": "38d1ac1f-767d-421f-b29f-b67380e180dc",
+                  "name": "Internal Server Error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/models",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "models"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                  "createdAt": "2026-10-22T01:23:24.000Z",
+                  "updatedAt": "2026-10-22T01:23:24.000Z",
+                  "uid": "35240-38d1ac1f-767d-421f-b29f-b67380e180dc"
                 }
               ],
-              "body": "{\n  \"error\": {\n    \"message\": \"The server had an error while processing your request.\",\n    \"type\": \"server_error\",\n    \"param\": null,\n    \"code\": \"server_error\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T01:23:24.000Z",
+              "updatedAt": "2026-10-22T01:23:24.000Z",
+              "uid": "35240-46d86494-eea9-4704-9205-d3c85a68d9f9"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "f8fdf12f-b57a-429c-b500-6dbf8d9e535f",
+          "createdAt": "2026-10-22T01:23:24.000Z",
+          "updatedAt": "2026-10-22T01:23:24.000Z",
+          "uid": "35240-f8fdf12f-b57a-429c-b500-6dbf8d9e535f"
         },
         {
-          "id": "e190568b-543c-401c-bdc9-b323cd7c1453",
-          "name": "List chat models",
-          "request": {
-            "name": "List chat models",
-            "description": {
-              "content": "List models available for chat completions.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "chat",
-                "completions",
-                "models"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "chat",
+          "item": [
             {
-              "id": "603221bd-e52b-4056-98ce-6daf2f820c48",
-              "name": "Successful Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "chat",
-                    "completions",
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "completions",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "models",
+                  "item": [
+                    {
+                      "name": "List chat models",
+                      "id": "bffd4bae-6b5e-49bc-a5ba-f2d5d97d19b3",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/chat/completions/models",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "chat",
+                            "completions",
+                            "models"
+                          ]
+                        },
+                        "description": "List models available for chat completions."
+                      },
+                      "response": [
+                        {
+                          "id": "06c2ffe5-a7e4-41d7-a1f0-0c6c515dbabe",
+                          "name": "Successful Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/chat/completions/models",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "chat",
+                                "completions",
+                                "models"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"created\": \"<integer>\",\n      \"input_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"output_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"context_length\": \"<integer>\",\n      \"max_output_length\": \"<integer>\",\n      \"pricing\": {\n        \"prompt\": \"<string>\",\n        \"completion\": \"<string>\",\n        \"input_cache_reads\": \"0\",\n        \"input_cache_writes\": \"0\"\n      },\n      \"supported_sampling_parameters\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"supported_features\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"openrouter\": {\n        \"slug\": \"<string>\"\n      },\n      \"datacenters\": [\n        {\n          \"country_code\": \"<string>\"\n        },\n        {\n          \"country_code\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"created\": \"<integer>\",\n      \"input_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"output_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"context_length\": \"<integer>\",\n      \"max_output_length\": \"<integer>\",\n      \"pricing\": {\n        \"prompt\": \"<string>\",\n        \"completion\": \"<string>\",\n        \"input_cache_reads\": \"0\",\n        \"input_cache_writes\": \"0\"\n      },\n      \"supported_sampling_parameters\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"supported_features\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"openrouter\": {\n        \"slug\": \"<string>\"\n      },\n      \"datacenters\": [\n        {\n          \"country_code\": \"<string>\"\n        },\n        {\n          \"country_code\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T01:23:24.000Z",
+                          "updatedAt": "2026-10-22T01:23:24.000Z",
+                          "uid": "35240-06c2ffe5-a7e4-41d7-a1f0-0c6c515dbabe"
+                        },
+                        {
+                          "id": "efc0d3de-2912-4d60-8312-8b52864a0780",
+                          "name": "Unauthorized \u2014 missing or invalid API key.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/chat/completions/models",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "chat",
+                                "completions",
+                                "models"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                          "createdAt": "2026-10-22T01:23:24.000Z",
+                          "updatedAt": "2026-10-22T01:23:24.000Z",
+                          "uid": "35240-efc0d3de-2912-4d60-8312-8b52864a0780"
+                        },
+                        {
+                          "id": "1916076c-291d-4bdb-8744-bf77d51a4df8",
+                          "name": "Internal Server Error.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/chat/completions/models",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "chat",
+                                "completions",
+                                "models"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                          "createdAt": "2026-10-22T01:23:24.000Z",
+                          "updatedAt": "2026-10-22T01:23:24.000Z",
+                          "uid": "35240-1916076c-291d-4bdb-8744-bf77d51a4df8"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:23:24.000Z",
+                      "updatedAt": "2026-10-22T01:23:24.000Z",
+                      "uid": "35240-bffd4bae-6b5e-49bc-a5ba-f2d5d97d19b3"
+                    }
+                  ],
+                  "id": "46a3dbac-dd55-419c-a377-033200865d80",
+                  "createdAt": "2026-10-22T01:23:24.000Z",
+                  "updatedAt": "2026-10-22T01:23:24.000Z",
+                  "uid": "35240-46a3dbac-dd55-419c-a377-033200865d80"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"mercury-2\",\n      \"name\": \"Inception: Mercury 2\",\n      \"created\": 1745798400,\n      \"description\": \"Mercury 2 diffusion language model for chat completions.\",\n      \"input_modalities\": [\n        \"text\"\n      ],\n      \"output_modalities\": [\n        \"text\"\n      ],\n      \"context_length\": 128000,\n      \"max_output_length\": 50000,\n      \"pricing\": {\n        \"prompt\": \"0.00000025\",\n        \"completion\": \"0.00000075\",\n        \"input_cache_reads\": \"0.000000025\",\n        \"input_cache_writes\": \"0\"\n      },\n      \"supported_sampling_parameters\": [\n        \"temperature\",\n        \"stop\"\n      ],\n      \"supported_features\": [\n        \"tools\",\n        \"json_mode\",\n        \"structured_outputs\"\n      ],\n      \"openrouter\": {\n        \"slug\": \"inception/mercury-2\"\n      },\n      \"datacenters\": [\n        {\n          \"country_code\": \"US\"\n        }\n      ]\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e8a03630-6669-470f-b341-9f56095d083b",
-              "name": "Unauthorized — missing or invalid API key.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "chat",
-                    "completions",
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"message\": \"Incorrect API key provided\",\n    \"type\": \"authentication_error\",\n    \"param\": null,\n    \"code\": \"invalid_api_key\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bc23c333-4766-416a-9497-8bcc6301aaa0",
-              "name": "Internal Server Error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "chat",
-                    "completions",
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"message\": \"The server had an error while processing your request.\",\n    \"type\": \"server_error\",\n    \"param\": null,\n    \"code\": \"server_error\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "c0b4813e-84a5-4f53-9288-a20227595a99",
+              "createdAt": "2026-10-22T01:23:24.000Z",
+              "updatedAt": "2026-10-22T01:23:24.000Z",
+              "uid": "35240-c0b4813e-84a5-4f53-9288-a20227595a99"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "289d0b8a-e37b-42e3-a344-5bec8685b0ff",
+          "createdAt": "2026-10-22T01:23:24.000Z",
+          "updatedAt": "2026-10-22T01:23:24.000Z",
+          "uid": "35240-289d0b8a-e37b-42e3-a344-5bec8685b0ff"
         },
         {
-          "id": "9c4d0cef-d91b-403f-97e1-e1fa199512fb",
-          "name": "List FIM models",
-          "request": {
-            "name": "List FIM models",
-            "description": {
-              "content": "List models available for fill-in-the-middle completions.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "fim",
-                "completions",
-                "models"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "fim",
+          "item": [
             {
-              "id": "a268af3b-4b78-4c6d-89a7-0f02ca3b7862",
-              "name": "Successful Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "fim",
-                    "completions",
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "completions",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "models",
+                  "item": [
+                    {
+                      "name": "List FIM models",
+                      "id": "0ee92007-ff8c-4f6a-bbe0-56d31ef26dca",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/fim/completions/models",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "fim",
+                            "completions",
+                            "models"
+                          ]
+                        },
+                        "description": "List models available for fill-in-the-middle completions."
+                      },
+                      "response": [
+                        {
+                          "id": "c90eb8f6-17a0-463f-b0d1-94d192b95ecf",
+                          "name": "Successful Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/fim/completions/models",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "fim",
+                                "completions",
+                                "models"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"created\": \"<integer>\",\n      \"input_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"output_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"context_length\": \"<integer>\",\n      \"max_output_length\": \"<integer>\",\n      \"pricing\": {\n        \"prompt\": \"<string>\",\n        \"completion\": \"<string>\",\n        \"input_cache_reads\": \"0\",\n        \"input_cache_writes\": \"0\"\n      },\n      \"supported_sampling_parameters\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"supported_features\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"openrouter\": {\n        \"slug\": \"<string>\"\n      },\n      \"datacenters\": [\n        {\n          \"country_code\": \"<string>\"\n        },\n        {\n          \"country_code\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"created\": \"<integer>\",\n      \"input_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"output_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"context_length\": \"<integer>\",\n      \"max_output_length\": \"<integer>\",\n      \"pricing\": {\n        \"prompt\": \"<string>\",\n        \"completion\": \"<string>\",\n        \"input_cache_reads\": \"0\",\n        \"input_cache_writes\": \"0\"\n      },\n      \"supported_sampling_parameters\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"supported_features\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"openrouter\": {\n        \"slug\": \"<string>\"\n      },\n      \"datacenters\": [\n        {\n          \"country_code\": \"<string>\"\n        },\n        {\n          \"country_code\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T01:23:24.000Z",
+                          "updatedAt": "2026-10-22T01:23:24.000Z",
+                          "uid": "35240-c90eb8f6-17a0-463f-b0d1-94d192b95ecf"
+                        },
+                        {
+                          "id": "59ee2a95-188e-4bb6-9bec-f27fe76fa77c",
+                          "name": "Unauthorized \u2014 missing or invalid API key.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/fim/completions/models",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "fim",
+                                "completions",
+                                "models"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                          "createdAt": "2026-10-22T01:23:24.000Z",
+                          "updatedAt": "2026-10-22T01:23:24.000Z",
+                          "uid": "35240-59ee2a95-188e-4bb6-9bec-f27fe76fa77c"
+                        },
+                        {
+                          "id": "1baf8025-5fdf-4d8a-8038-4b3f90376bd0",
+                          "name": "Internal Server Error.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/fim/completions/models",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "fim",
+                                "completions",
+                                "models"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                          "createdAt": "2026-10-22T01:23:24.000Z",
+                          "updatedAt": "2026-10-22T01:23:24.000Z",
+                          "uid": "35240-1baf8025-5fdf-4d8a-8038-4b3f90376bd0"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:23:24.000Z",
+                      "updatedAt": "2026-10-22T01:23:24.000Z",
+                      "uid": "35240-0ee92007-ff8c-4f6a-bbe0-56d31ef26dca"
+                    }
+                  ],
+                  "id": "894df4a5-a636-4054-aeb4-2c6a42451c3f",
+                  "createdAt": "2026-10-22T01:23:24.000Z",
+                  "updatedAt": "2026-10-22T01:23:24.000Z",
+                  "uid": "35240-894df4a5-a636-4054-aeb4-2c6a42451c3f"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"mercury-edit-2\",\n      \"name\": \"Inception: Mercury Edit 2\",\n      \"created\": 1745798400,\n      \"description\": \"Mercury Edit 2 for code edit completions and fill-in-the-middle code completions.\",\n      \"input_modalities\": [\n        \"text\"\n      ],\n      \"output_modalities\": [\n        \"text\"\n      ],\n      \"context_length\": 128000,\n      \"max_output_length\": 32000,\n      \"pricing\": {\n        \"prompt\": \"0.00000025\",\n        \"completion\": \"0.00000075\",\n        \"input_cache_reads\": \"0.000000025\",\n        \"input_cache_writes\": \"0\"\n      },\n      \"supported_sampling_parameters\": [\n        \"temperature\",\n        \"stop\"\n      ],\n      \"supported_features\": [],\n      \"openrouter\": {\n        \"slug\": \"inception/mercury-edit-2\"\n      },\n      \"datacenters\": [\n        {\n          \"country_code\": \"US\"\n        }\n      ]\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0214678b-580f-40bc-bf64-bdf40abd8c30",
-              "name": "Unauthorized — missing or invalid API key.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "fim",
-                    "completions",
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"message\": \"Incorrect API key provided\",\n    \"type\": \"authentication_error\",\n    \"param\": null,\n    \"code\": \"invalid_api_key\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "91a76c28-66ed-4430-9c07-7bd0364cefad",
-              "name": "Internal Server Error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "fim",
-                    "completions",
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"message\": \"The server had an error while processing your request.\",\n    \"type\": \"server_error\",\n    \"param\": null,\n    \"code\": \"server_error\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "28d03bc7-4e19-40e5-aa25-08e96ac59e84",
+              "createdAt": "2026-10-22T01:23:24.000Z",
+              "updatedAt": "2026-10-22T01:23:24.000Z",
+              "uid": "35240-28d03bc7-4e19-40e5-aa25-08e96ac59e84"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "d2a19fba-f180-46a3-b306-707c6b108f19",
+          "createdAt": "2026-10-22T01:23:24.000Z",
+          "updatedAt": "2026-10-22T01:23:24.000Z",
+          "uid": "35240-d2a19fba-f180-46a3-b306-707c6b108f19"
         },
         {
-          "id": "54d31604-0a90-491f-9127-5a85cd55cd05",
-          "name": "List Edit models",
-          "request": {
-            "name": "List Edit models",
-            "description": {
-              "content": "List models available for edit completions.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "edit",
-                "completions",
-                "models"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "edit",
+          "item": [
             {
-              "id": "a56f3a80-af86-4798-ae27-4b4874b5d83e",
-              "name": "Successful Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "edit",
-                    "completions",
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "completions",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "models",
+                  "item": [
+                    {
+                      "name": "List Edit models",
+                      "id": "d51c2e59-71c8-4a3c-aeda-3b42ef1bea75",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/edit/completions/models",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "edit",
+                            "completions",
+                            "models"
+                          ]
+                        },
+                        "description": "List models available for edit completions."
+                      },
+                      "response": [
+                        {
+                          "id": "6ade5f9f-2832-41a0-b169-e2ee7b4a2f74",
+                          "name": "Successful Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/edit/completions/models",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "edit",
+                                "completions",
+                                "models"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"created\": \"<integer>\",\n      \"input_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"output_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"context_length\": \"<integer>\",\n      \"max_output_length\": \"<integer>\",\n      \"pricing\": {\n        \"prompt\": \"<string>\",\n        \"completion\": \"<string>\",\n        \"input_cache_reads\": \"0\",\n        \"input_cache_writes\": \"0\"\n      },\n      \"supported_sampling_parameters\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"supported_features\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"openrouter\": {\n        \"slug\": \"<string>\"\n      },\n      \"datacenters\": [\n        {\n          \"country_code\": \"<string>\"\n        },\n        {\n          \"country_code\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"created\": \"<integer>\",\n      \"input_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"output_modalities\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"context_length\": \"<integer>\",\n      \"max_output_length\": \"<integer>\",\n      \"pricing\": {\n        \"prompt\": \"<string>\",\n        \"completion\": \"<string>\",\n        \"input_cache_reads\": \"0\",\n        \"input_cache_writes\": \"0\"\n      },\n      \"supported_sampling_parameters\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"supported_features\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"openrouter\": {\n        \"slug\": \"<string>\"\n      },\n      \"datacenters\": [\n        {\n          \"country_code\": \"<string>\"\n        },\n        {\n          \"country_code\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T01:23:24.000Z",
+                          "updatedAt": "2026-10-22T01:23:24.000Z",
+                          "uid": "35240-6ade5f9f-2832-41a0-b169-e2ee7b4a2f74"
+                        },
+                        {
+                          "id": "1017082c-37af-4700-bcd0-6f068b749f3b",
+                          "name": "Unauthorized \u2014 missing or invalid API key.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/edit/completions/models",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "edit",
+                                "completions",
+                                "models"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                          "createdAt": "2026-10-22T01:23:24.000Z",
+                          "updatedAt": "2026-10-22T01:23:24.000Z",
+                          "uid": "35240-1017082c-37af-4700-bcd0-6f068b749f3b"
+                        },
+                        {
+                          "id": "51622f86-e743-4697-8ec8-111888cec67e",
+                          "name": "Internal Server Error.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/edit/completions/models",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "edit",
+                                "completions",
+                                "models"
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                          "createdAt": "2026-10-22T01:23:24.000Z",
+                          "updatedAt": "2026-10-22T01:23:24.000Z",
+                          "uid": "35240-51622f86-e743-4697-8ec8-111888cec67e"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:23:24.000Z",
+                      "updatedAt": "2026-10-22T01:23:24.000Z",
+                      "uid": "35240-d51c2e59-71c8-4a3c-aeda-3b42ef1bea75"
+                    }
+                  ],
+                  "id": "2c244b91-03f9-4dfc-9de1-c03d5fcf4b4a",
+                  "createdAt": "2026-10-22T01:23:24.000Z",
+                  "updatedAt": "2026-10-22T01:23:24.000Z",
+                  "uid": "35240-2c244b91-03f9-4dfc-9de1-c03d5fcf4b4a"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"mercury-edit-2\",\n      \"name\": \"Inception: Mercury Edit 2\",\n      \"created\": 1745798400,\n      \"description\": \"Mercury Edit 2 for code edit completions and fill-in-the-middle code completions.\",\n      \"input_modalities\": [\n        \"text\"\n      ],\n      \"output_modalities\": [\n        \"text\"\n      ],\n      \"context_length\": 128000,\n      \"max_output_length\": 32000,\n      \"pricing\": {\n        \"prompt\": \"0.00000025\",\n        \"completion\": \"0.00000075\",\n        \"input_cache_reads\": \"0.000000025\",\n        \"input_cache_writes\": \"0\"\n      },\n      \"supported_sampling_parameters\": [\n        \"temperature\",\n        \"stop\"\n      ],\n      \"supported_features\": [],\n      \"openrouter\": {\n        \"slug\": \"inception/mercury-edit-2\"\n      },\n      \"datacenters\": [\n        {\n          \"country_code\": \"US\"\n        }\n      ]\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f3b4e532-98e5-49af-8bef-43baaac65f84",
-              "name": "Unauthorized — missing or invalid API key.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "edit",
-                    "completions",
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"message\": \"Incorrect API key provided\",\n    \"type\": \"authentication_error\",\n    \"param\": null,\n    \"code\": \"invalid_api_key\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d2e0e9ae-7ce5-4d09-bfa4-b1e3416ae66a",
-              "name": "Internal Server Error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "edit",
-                    "completions",
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"message\": \"The server had an error while processing your request.\",\n    \"type\": \"server_error\",\n    \"param\": null,\n    \"code\": \"server_error\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "c9d5575d-4c36-42d0-bd6c-3280f3a129bd",
+              "createdAt": "2026-10-22T01:23:24.000Z",
+              "updatedAt": "2026-10-22T01:23:24.000Z",
+              "uid": "35240-c9d5575d-4c36-42d0-bd6c-3280f3a129bd"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "0971cbb6-0579-461f-ba33-8769dfe38f94",
+          "createdAt": "2026-10-22T01:23:24.000Z",
+          "updatedAt": "2026-10-22T01:23:24.000Z",
+          "uid": "35240-0971cbb6-0579-461f-ba33-8769dfe38f94"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.inceptionlabs.ai",
-      "key": "baseUrl"
+      "id": "eb633e47-47f7-4add-8978-98d62ebcc30b",
+      "createdAt": "2026-10-22T01:23:24.000Z",
+      "updatedAt": "2026-10-22T01:23:24.000Z",
+      "uid": "35240-eb633e47-47f7-4add-8978-98d62ebcc30b"
     }
   ],
   "auth": {
@@ -753,17 +823,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "b2cd2520-2ead-4b2b-babc-6ae9f2a1f112",
-    "name": "Inception Chat Models API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Inception Labs LLM API — chat, FIM, and edit completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes with extensions for diffusion-specific features.\n\nContact Support:\n Name: Inception Labs\n Email: support@inceptionlabs.ai",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.inceptionlabs.ai"
     }
-  }
+  ]
 }

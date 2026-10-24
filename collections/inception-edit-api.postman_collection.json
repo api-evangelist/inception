@@ -1,452 +1,504 @@
 {
+  "info": {
+    "_postman_id": "87f1461f-2120-48bb-a543-1ffc1deebaa7",
+    "name": "Inception Edit API",
+    "description": "Inception Labs LLM API \u2014 chat, FIM, and edit completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes with extensions for diffusion-specific features.\n\nContact Support:\n Name: Inception Labs\n Email: support@inceptionlabs.ai",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:23:11.000Z",
+    "updatedAt": "2026-10-22T01:23:11.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-87f1461f-2120-48bb-a543-1ffc1deebaa7"
+  },
   "item": [
     {
-      "id": "db2a1947-0b8e-4e4f-a469-1cf0afb03792",
-      "name": "Edit",
-      "description": {
-        "content": "Code edit completion endpoints.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "9a4649c8-3cbb-4897-b854-a50b7ef2ea9b",
-          "name": "Create a code edit completion",
-          "request": {
-            "name": "Create a code edit completion",
-            "description": {
-              "content": "Generate an edit to a code region given the surrounding context. The request must contain a single user message whose content includes the required edit prompt tags (e.g. `<|code_to_edit|>`, `<|cursor|>`, `<|current_file_content|>`). Returns an `EditCompletion` object. Streaming and tool calling are not supported on this endpoint.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "edit",
-                "completions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    },\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 1024,\n  \"temperature\": 0.2,\n  \"top_p\": 1,\n  \"presence_penalty\": 1\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "edit",
+          "item": [
             {
-              "id": "0d90b69c-2fbf-42bb-8426-afec49a35d5b",
-              "name": "Successful Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "edit",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\\\"hi\\\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\\\"hi\\\")<|cursor|>\\n<|/code_to_edit|>\"\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "completions",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Create a code edit completion",
+                  "id": "0641b508-22fc-430f-b1e8-a6119ade1e6e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    },\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 1024,\n  \"temperature\": 0.2,\n  \"top_p\": 1,\n  \"presence_penalty\": 1\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/edit/completions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "edit",
+                        "completions"
+                      ]
+                    },
+                    "description": "Generate an edit to a code region given the surrounding context. The request must contain a single user message whose content includes the required edit prompt tags (e.g. ``, ``, ``). Returns an `EditCompletion` object. Streaming and tool calling are not supported on this endpoint."
+                  },
+                  "response": [
+                    {
+                      "id": "53b83e95-811d-41bc-8f28-fd014aedfa7d",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    },\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 1024,\n  \"temperature\": 0.2,\n  \"top_p\": 1,\n  \"presence_penalty\": 1\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/edit/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "edit",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"created\": \"<integer>\",\n  \"model\": \"<string>\",\n  \"choices\": [\n    {\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"<string>\"\n      },\n      \"finish_reason\": \"length\"\n    },\n    {\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"<string>\"\n      },\n      \"finish_reason\": null\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": \"<integer>\",\n    \"reasoning_tokens\": \"<integer>\",\n    \"completion_tokens\": \"<integer>\",\n    \"total_tokens\": \"<integer>\",\n    \"cached_input_tokens\": \"<integer>\"\n  },\n  \"object\": \"edit.completion\",\n  \"warning\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T01:23:11.000Z",
+                      "updatedAt": "2026-10-22T01:23:11.000Z",
+                      "uid": "35240-53b83e95-811d-41bc-8f28-fd014aedfa7d"
+                    },
+                    {
+                      "id": "dc1b11a9-6b26-47e6-b596-6eb0a196e745",
+                      "name": "Bad Request \u2014 invalid parameters.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    },\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 1024,\n  \"temperature\": 0.2,\n  \"top_p\": 1,\n  \"presence_penalty\": 1\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/edit/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "edit",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:23:11.000Z",
+                      "updatedAt": "2026-10-22T01:23:11.000Z",
+                      "uid": "35240-dc1b11a9-6b26-47e6-b596-6eb0a196e745"
+                    },
+                    {
+                      "id": "92e712ea-fbd5-4a0e-9365-cd1cb02e2009",
+                      "name": "Unauthorized \u2014 missing or invalid API key.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    },\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 1024,\n  \"temperature\": 0.2,\n  \"top_p\": 1,\n  \"presence_penalty\": 1\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/edit/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "edit",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:23:11.000Z",
+                      "updatedAt": "2026-10-22T01:23:11.000Z",
+                      "uid": "35240-92e712ea-fbd5-4a0e-9365-cd1cb02e2009"
+                    },
+                    {
+                      "id": "9bac97e8-c81a-407a-b6c2-19f4b41ab5d6",
+                      "name": "Payment Required \u2014 billing inactive or quota exceeded.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    },\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 1024,\n  \"temperature\": 0.2,\n  \"top_p\": 1,\n  \"presence_penalty\": 1\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/edit/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "edit",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Payment Required",
+                      "code": 402,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:23:11.000Z",
+                      "updatedAt": "2026-10-22T01:23:11.000Z",
+                      "uid": "35240-9bac97e8-c81a-407a-b6c2-19f4b41ab5d6"
+                    },
+                    {
+                      "id": "727b2c90-dcca-4d4b-914b-e41d9eeb1329",
+                      "name": "Not Found \u2014 model not available for this account.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    },\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 1024,\n  \"temperature\": 0.2,\n  \"top_p\": 1,\n  \"presence_penalty\": 1\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/edit/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "edit",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:23:11.000Z",
+                      "updatedAt": "2026-10-22T01:23:11.000Z",
+                      "uid": "35240-727b2c90-dcca-4d4b-914b-e41d9eeb1329"
+                    },
+                    {
+                      "id": "543df3eb-08e6-42f8-a824-4cc9ad25b272",
+                      "name": "Too Many Requests \u2014 rate limit exceeded.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    },\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 1024,\n  \"temperature\": 0.2,\n  \"top_p\": 1,\n  \"presence_penalty\": 1\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/edit/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "edit",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:23:11.000Z",
+                      "updatedAt": "2026-10-22T01:23:11.000Z",
+                      "uid": "35240-543df3eb-08e6-42f8-a824-4cc9ad25b272"
+                    },
+                    {
+                      "id": "fa5ba3fb-abbb-43ed-ba56-4a8ac1611544",
+                      "name": "Internal Server Error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    },\n    {\n      \"content\": \"<string>\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": 1024,\n  \"temperature\": 0.2,\n  \"top_p\": 1,\n  \"presence_penalty\": 1\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/edit/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "edit",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"param\": \"<string,null>\",\n    \"code\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:23:11.000Z",
+                      "updatedAt": "2026-10-22T01:23:11.000Z",
+                      "uid": "35240-fa5ba3fb-abbb-43ed-ba56-4a8ac1611544"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:23:11.000Z",
+                  "updatedAt": "2026-10-22T01:23:11.000Z",
+                  "uid": "35240-0641b508-22fc-430f-b1e8-a6119ade1e6e"
                 }
               ],
-              "body": "{\n  \"id\": \"cmpl-7a2b3c4d5e\",\n  \"object\": \"edit.completion\",\n  \"created\": 1745798400,\n  \"model\": \"mercury-edit-2\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"finish_reason\": \"stop\",\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"def greet(name):\\n    print(f\\\"hi {name}\\\")\\n\"\n      }\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 156,\n    \"completion_tokens\": 18,\n    \"total_tokens\": 174,\n    \"reasoning_tokens\": 0,\n    \"cached_input_tokens\": 0\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9328ac05-9479-498c-a255-4fcdf6e1cdec",
-              "name": "Bad Request — invalid parameters.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "edit",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\\\"hi\\\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\\\"hi\\\")<|cursor|>\\n<|/code_to_edit|>\"\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"message\": \"You exceeded the maximum context length for this model of 128000. Please reduce the length of the messages or completion.\",\n    \"type\": \"invalid_request_error\",\n    \"param\": \"messages\",\n    \"code\": \"context_length_exceeded\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b0ec5b0f-3a62-46c8-8eb1-f4491e1a44b4",
-              "name": "Unauthorized — missing or invalid API key.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "edit",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\\\"hi\\\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\\\"hi\\\")<|cursor|>\\n<|/code_to_edit|>\"\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"message\": \"Incorrect API key provided\",\n    \"type\": \"authentication_error\",\n    \"param\": null,\n    \"code\": \"invalid_api_key\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "96919d92-7796-45c6-a6de-d8acdea15ed8",
-              "name": "Payment Required — billing inactive or quota exceeded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "edit",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\\\"hi\\\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\\\"hi\\\")<|cursor|>\\n<|/code_to_edit|>\"\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Payment Required",
-              "code": 402,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"message\": \"Account is inactive\",\n    \"type\": \"account_error\",\n    \"param\": null,\n    \"code\": \"account_error\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "717492e6-be04-4c78-80d8-9e723e3a90fe",
-              "name": "Not Found — model not available for this account.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "edit",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\\\"hi\\\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\\\"hi\\\")<|cursor|>\\n<|/code_to_edit|>\"\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"message\": \"model `jupyter-2` not found\",\n    \"type\": \"invalid_request_error\",\n    \"param\": \"model\",\n    \"code\": \"model_not_found\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6d3fdefd-eb26-48a6-b121-775f23125557",
-              "name": "Too Many Requests — rate limit exceeded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "edit",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\\\"hi\\\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\\\"hi\\\")<|cursor|>\\n<|/code_to_edit|>\"\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"message\": \"Rate limit exceeded. Please try again later.\",\n    \"type\": \"rate_limit_error\",\n    \"param\": null,\n    \"code\": \"rate_limit_reached\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "aa1c3af8-9330-4f8d-ab74-3622c9944e1d",
-              "name": "Internal Server Error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "edit",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"model\": \"mercury-edit-2\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"<|recently_viewed_code_snippets|>\\n<|/recently_viewed_code_snippets|>\\n<|edit_diff_history|>\\n<|/edit_diff_history|>\\n<|current_file_content|>\\ndef greet(name):\\n    print(\\\"hi\\\")\\n<|/current_file_content|>\\n<|code_to_edit|>\\ndef greet(name):\\n    print(\\\"hi\\\")<|cursor|>\\n<|/code_to_edit|>\"\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"message\": \"The server had an error while processing your request.\",\n    \"type\": \"server_error\",\n    \"param\": null,\n    \"code\": \"server_error\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "5aa5430f-b3df-4279-9f4c-707c88594141",
+              "createdAt": "2026-10-22T01:23:11.000Z",
+              "updatedAt": "2026-10-22T01:23:11.000Z",
+              "uid": "35240-5aa5430f-b3df-4279-9f4c-707c88594141"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "85a5b035-1ce6-41ed-8088-085e2393836d",
+          "createdAt": "2026-10-22T01:23:11.000Z",
+          "updatedAt": "2026-10-22T01:23:11.000Z",
+          "uid": "35240-85a5b035-1ce6-41ed-8088-085e2393836d"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.inceptionlabs.ai",
-      "key": "baseUrl"
+      "id": "b508398b-f761-48c4-a6d9-dd1f716a4b39",
+      "createdAt": "2026-10-22T01:23:11.000Z",
+      "updatedAt": "2026-10-22T01:23:11.000Z",
+      "uid": "35240-b508398b-f761-48c4-a6d9-dd1f716a4b39"
     }
   ],
   "auth": {
@@ -454,17 +506,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "e5ae5103-f8b7-4420-8e98-216cef14ae2b",
-    "name": "Inception Chat Edit API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Inception Labs LLM API — chat, FIM, and edit completions powered by Mercury diffusion language models. OpenAI-compatible request/response shapes with extensions for diffusion-specific features.\n\nContact Support:\n Name: Inception Labs\n Email: support@inceptionlabs.ai",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.inceptionlabs.ai"
     }
-  }
+  ]
 }
